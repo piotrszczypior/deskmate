@@ -1,0 +1,7 @@
+<div class="container">
+  <app-file-uploader (uploadedFilesEmitter)="onFileSelected($event)" />
+</div>
+
+@if (imageUrl) {
+  <app-image-canvas [imageUrl]="imageUrl" />
+}

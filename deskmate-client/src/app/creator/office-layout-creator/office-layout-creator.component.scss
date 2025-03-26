@@ -1,0 +1,20 @@
+:host {
+  max-width: 600px;
+
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    app-file-uploader {
+      display: block;
+    }
+  }
+
+  app-image-canvas {
+    display: block;
+    max-width: 600px;
+    width: 600px;
+    margin: 30px 0 auto;
+  }
+}
