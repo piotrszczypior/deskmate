@@ -1,17 +1,18 @@
 <div class="file-dropzone-container">
   <input
-    #fileInput
-    (onFileSelected)="onFileSelected($event)"
-    [accept]="ACCEPT"
-    [multiple]="false"
-    ng2FileSelect
-    type="file" />
+          #fileInput
+          (click)="fileInput.value=''"
+          (onFileSelected)="onFileSelected($event)"
+          [accept]="ACCEPTED_FILES"
+          [multiple]="false"
+          ng2FileSelect
+          type="file" />
 
   <div
-    (click)="onSelectFilesToUpload($event)"
-    (onFileDrop)="onFileSelected($event)"
-    class="dropdown-zone"
-    ng2FileDrop>
+      (click)="onSelectFilesToUpload($event)"
+      (onFileDrop)="onFileSelected($event)"
+      class="dropdown-zone"
+      ng2FileDrop>
     <div class="label">
       <span>Upload image</span>
     </div>

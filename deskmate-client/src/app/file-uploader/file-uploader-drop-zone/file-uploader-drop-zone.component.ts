@@ -1,5 +1,6 @@
-import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
-import { FileUploadModule } from 'ng2-file-upload';
+import {Component, ElementRef, EventEmitter, Output, ViewChild} from '@angular/core';
+import {FileUploadModule} from 'ng2-file-upload';
+
 
 @Component({
   selector: 'app-file-uploader-drop-zone',
@@ -10,7 +11,7 @@ import { FileUploadModule } from 'ng2-file-upload';
 export class FileUploaderDropZoneComponent {
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
 
-  readonly ACCEPT = 'image/*';
+  readonly ACCEPTED_FILES = 'image/*';
 
   @Output()
   readonly uploadedFileEmitter$ = new EventEmitter<File[]>();

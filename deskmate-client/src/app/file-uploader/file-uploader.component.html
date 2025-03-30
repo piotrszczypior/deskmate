@@ -5,7 +5,8 @@
     <div class="uploaded-file">
       <app-icon [icon]="'photo'" />
       <div class="filename">{{ file.name }}</div>
-      <app-icon [icon]="'delete'" />
+      <app-icon [icon]="'delete'"
+                (click)="deletedFile(file)" />
     </div>
   }
 </div>

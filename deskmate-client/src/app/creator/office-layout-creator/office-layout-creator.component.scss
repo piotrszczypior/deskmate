@@ -2,6 +2,7 @@
   max-width: 600px;
 
   .container {
+    max-width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -11,10 +12,16 @@
     }
   }
 
+  .canvas-container {
+    margin-top: 30px;
+    max-width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+
   app-image-canvas {
     display: block;
-    max-width: 600px;
-    width: 600px;
+    max-width: 100%;
     margin: 30px 0 auto;
   }
 }

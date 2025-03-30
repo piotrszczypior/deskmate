@@ -1,7 +1,13 @@
 <div class="container">
-  <app-file-uploader (uploadedFilesEmitter)="onFileSelected($event)" />
+  <app-file-uploader (deletedFileEmitter)="onFileDeleted($event)"
+                     (uploadedFilesEmitter)="onFileSelected($event)" />
 </div>
-
-@if (imageUrl) {
-  <app-image-canvas [imageUrl]="imageUrl" />
-}
+<div class="canvas-container">
+  <mat-tab-group>
+    @for (imageName of getAllImagesNames(); track $index) {
+      <mat-tab [label]="imageName">
+        <app-image-canvas [imageUrl]="imagesUrls[imageName]" />
+      </mat-tab>
+    }
+  </mat-tab-group>
+</div>
