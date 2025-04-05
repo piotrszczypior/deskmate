@@ -1,0 +1,20 @@
+:host {
+  .uploaded-image {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+    border-radius: 3px;
+    border: 1px solid #707374;
+
+    .filename {
+      flex: 1;
+      word-wrap: break-word;
+      word-break: break-word;
+      max-width: 405px;
+      flex-wrap: wrap;
+    }
+  }
+}

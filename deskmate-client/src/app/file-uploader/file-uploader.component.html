@@ -1,12 +1,39 @@
 <div class="file-uploader-container">
   <app-file-uploader-drop-zone (uploadedFileEmitter$)="uploadedFiles($event)" />
 
-  @for (file of files; track $index) {
-    <div class="uploaded-file">
-      <app-icon [icon]="'photo'" />
-      <div class="filename">{{ file.name }}</div>
-      <app-icon [icon]="'delete'"
-                (click)="deletedFile(file)" />
-    </div>
+  <div
+    (cdkDropListDropped)="drop($event)"
+    cdkDropList
+    class="drag-and-drop-container">
+    @for (file of files; track $index) {
+      <div class="upload">
+        Floor {{ $index }}
+        <hr class="divider" />
+
+        <!--        <div-->
+        <!--          class="uploaded-file"-->
+        <!--          cdkDrag>-->
+        <!--          <app-icon [icon]="'photo'" />-->
+        <!--          <div class="filename">{{ image }}</div>-->
+        <!--          <app-icon-->
+        <!--            (click)="deletedFile($event)"-->
+        <!--            [icon]="'delete'" />-->
+        <!--        </div>-->
+
+        <app-uploaded-image
+          [image]="file"
+          cdkDrag
+          (onDeletedImage)="deletedFile(file)" />
+      </div>
+    }
+  </div>
+
+  @if (files.length > 0) {
+    <button
+      class="long-button"
+      (click)="confirmFloorsConfiguration($event)">
+      Next
+      <app-icon [icon]="'arrow_circle_right'" />
+    </button>
   }
 </div>
