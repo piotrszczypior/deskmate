@@ -1,0 +1,7 @@
+<div class="uploaded-image">
+  <app-icon [icon]="'photo'" />
+  <div class="filename">{{ image?.name }}</div>
+  <app-icon
+    (click)="deletedFile($event)"
+    [icon]="'delete'" />
+</div>
