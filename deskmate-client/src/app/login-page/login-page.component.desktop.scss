@@ -1,0 +1,76 @@
+:host {
+  @media (width >= map-get($breakpoints, lg)) {
+    .login-page {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 500px;
+      margin: 0 300px;
+
+      &:before {
+        content: '';
+        display: block;
+        position: absolute;
+        background-image: url('../../assets/login-page-background-2.png');
+        background-repeat: no-repeat;
+        background-size: 1000px;
+        background-position: top center;
+        right: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.5;
+        clip-path: polygon(100% 0%, 100% 100%, 0% 100%, 0% 500px);
+        z-index: -1;
+      }
+
+      .content-container {
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+        background: white;
+        border-radius: 1em;
+
+        h1 {
+          font-size: 48px;
+          margin-bottom: 0;
+        }
+
+        p {
+          margin-top: 0;
+          font-size: 18px;
+        }
+
+        .login-container {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+
+          .login-header {
+            font-size: 22px;
+            margin-bottom: 20px;
+          }
+
+          form {
+            display: flex;
+            flex-direction: column;
+
+            .form-field {
+              width: 450px;
+            }
+
+            .login-button {
+              border: 1px black solid;
+              border-radius: 8px;
+              background: black;
+              color: white;
+              height: 50px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

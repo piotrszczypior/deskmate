@@ -4,7 +4,9 @@
     <p>Take Control of Your Office Space – Intuitively and Efficiently</p>
 
     <div class="login-container">
-      <form class="form">
+      <form
+        (ngSubmit)="submit()"
+        class="form">
         <mat-form-field class="form-field">
           <mat-label>Username</mat-label>
           <input
