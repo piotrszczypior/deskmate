@@ -1,0 +1,35 @@
+:host {
+  .creator-page {
+    display: flex;
+    flex-direction: row;
+    padding: 0 300px;
+    justify-content: flex-start;
+    gap: 30px;
+    margin-top: 30px;
+
+    .upload-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      width: 500px;
+
+      app-file-uploader {
+        display: block;
+        margin-top: 20px;
+      }
+    }
+
+    .canvas-container {
+      display: flex;
+      justify-content: center;
+      flex-grow: 1;
+
+      app-image-canvas {
+        display: block;
+        max-width: 100%;
+        margin: 30px 0 auto;
+      }
+    }
+  }
+}

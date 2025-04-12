@@ -1,0 +1,22 @@
+<div class="creator-page">
+  <div class="upload-container">
+    <p>
+      Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000
+      years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia
+    </p>
+
+    <app-file-uploader
+      (deletedFileEmitter)="onFileDeleted($event)"
+      (filesOrderChanged)="onFilesReload($event)"
+      (uploadedFilesEmitter)="onFileSelected($event)" />
+  </div>
+  <div class="canvas-container">
+    <mat-tab-group>
+      @for (imageName of getAllImagesNames(); track i; let i = $index) {
+        <mat-tab [label]="'Floor ' + i">
+          <app-image-canvas [imageUrl]="imagesUrls[imageName]" />
+        </mat-tab>
+      }
+    </mat-tab-group>
+  </div>
+</div>

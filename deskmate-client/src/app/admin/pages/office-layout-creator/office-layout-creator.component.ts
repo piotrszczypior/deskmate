@@ -1,13 +1,12 @@
-import {Component} from '@angular/core';
-import {FileUploaderComponent} from '../../file-uploader/file-uploader.component';
-import {ImageCanvasComponent} from './image-canvas/image-canvas.component';
-import {MatTab, MatTabGroup} from '@angular/material/tabs';
-import {CdkDragDrop} from '@angular/cdk/drag-drop';
-
+import { Component } from '@angular/core';
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
+import { MatTab, MatTabGroup } from '@angular/material/tabs';
+import { FileUploaderComponent } from '../../../shared/components/file-uploader/file-uploader.component';
+import { ImageCanvasComponent } from '../../components/image-canvas/image-canvas.component';
 
 @Component({
   selector: 'app-office-layout-creator',
-  imports: [FileUploaderComponent, ImageCanvasComponent, MatTabGroup, MatTab],
+  imports: [MatTabGroup, MatTab, FileUploaderComponent, ImageCanvasComponent],
   templateUrl: './office-layout-creator.component.html',
   styleUrl: './office-layout-creator.component.scss',
 })

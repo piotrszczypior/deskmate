@@ -3,5 +3,6 @@
   <div class="filename">{{ image?.name }}</div>
   <app-icon
     (click)="deletedFile($event)"
+    [clickable]="true"
     [icon]="'delete'" />
 </div>

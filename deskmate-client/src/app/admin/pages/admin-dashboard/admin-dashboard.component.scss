@@ -1,0 +1,80 @@
+:host {
+  //.admin-dashboard {
+  //  display: flex;
+  //  justify-content: space-between;
+  //  padding: 0 300px;
+  //
+  //  .left-bar {
+  //    display: flex;
+  //    flex-direction: column;
+  //    align-items: center;
+  //    width: 350px;
+  //
+  //    .profile-card {
+  //      width: 100%;
+  //      height: 200px;
+  //      background: red;
+  //      border-radius: 1rem;
+  //    }
+  //
+  //    .buildings-card {
+  //      width: 100%;
+  //      height: 400px;
+  //      background: green;
+  //    }
+  //  }
+  //
+  //  .content {
+  //    flex-grow: 1;
+  //    background-color: #f4f4f4;
+  //  }
+  //}
+
+  .admin-dashboard {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0 300px;
+    margin-top: 30px;
+    position: relative;
+
+    app-profile-card {
+      display: block;
+      position: absolute;
+      right: 300px;
+      top: 0;
+    }
+
+    .buildings {
+      width: 750px;
+    }
+
+    .editor-card {
+      margin-top: 100px;
+      width: 750px;
+
+      .divider {
+        width: 100%;
+        height: 2px;
+        color: #ccc;
+        background: #ccc;
+        font-size: 0;
+        border: 0;
+        margin-left: 0;
+        margin-bottom: 15px;
+        margin-top: 5px;
+      }
+
+      .new-building-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: white;
+        width: 300px;
+        border: 1px solid #e0e0e0;
+        border-radius: 1em;
+        cursor: pointer;
+      }
+    }
+  }
+}

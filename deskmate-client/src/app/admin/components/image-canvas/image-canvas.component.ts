@@ -1,5 +1,5 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { DeskAnnotation } from '../../model/DeskAnnotation';
+import { DeskAnnotation } from '../../models/DeskAnnotation';
 
 @Component({
   selector: 'app-image-canvas',

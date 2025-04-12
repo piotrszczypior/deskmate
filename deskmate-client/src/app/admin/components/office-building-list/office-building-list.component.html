@@ -1,0 +1,7 @@
+<div class="buildings-card">
+  @for (building of buildings; track $index) {
+    <app-office-building-item
+      [building]="building"
+      [index]="$index" />
+  }
+</div>

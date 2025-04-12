@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { OfficeLayoutCreatorComponent } from './creator/office-layout-creator/office-layout-creator.component';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports: [OfficeLayoutCreatorComponent],
+  imports: [RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })

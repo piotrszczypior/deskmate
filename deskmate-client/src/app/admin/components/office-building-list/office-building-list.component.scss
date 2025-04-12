@@ -1,0 +1,10 @@
+:host {
+  width: 650px;
+
+  .buildings-card {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    width: 650px;
+  }
+}

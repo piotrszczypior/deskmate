@@ -1,0 +1,13 @@
+:host {
+  .building-panel {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-left: 20px;
+    height: 60px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background-color: #fafafa;
+    cursor: pointer;
+  }
+}
