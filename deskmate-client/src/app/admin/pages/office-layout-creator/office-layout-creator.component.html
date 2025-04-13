@@ -18,5 +18,24 @@
         </mat-tab>
       }
     </mat-tab-group>
+
+    <div>
+      <p
+        >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras malesuada turpis erat. Suspendisse bibendum sit amet nulla sit amet faucibus. Nam in
+        blandit mi, sed tincidunt dui. Praesent tincidunt sit amet tortor sit amet bibendum. Donec sit amet condimentum magna. Nam et posuere arcu. Nulla
+        tellus.</p
+      >
+
+      <div class="actions-container">
+        <button class="back-button" (click)="onBack($event)">
+          <app-icon [icon]="'arrow_circle_left'" />
+          Back
+        </button>
+        <button class="continue-button">
+          Continue
+          <app-icon [icon]="'arrow_circle_right'" />
+        </button>
+      </div>
+    </div>
   </div>
 </div>

@@ -5,16 +5,18 @@
     alt=""
     class="image" />
 
-  <div
-    (click)="addDesk($event)"
-    class="canvas">
-    @for (desk of desks; track desk.id) {
-      <div
-        (click)="removeDesk(desk, $event)"
-        [style.left.px]="desk.x"
-        [style.top.px]="desk.y"
-        class="desk-marker">
-      </div>
-    }
-  </div>
+  @if (isEditMode()) {
+    <div
+      (click)="addDesk($event)"
+      class="canvas">
+      @for (desk of desks; track desk.id) {
+        <div
+          (click)="removeDesk(desk, $event)"
+          [style.left.px]="desk.x"
+          [style.top.px]="desk.y"
+          class="desk-marker">
+        </div>
+      }
+    </div>
+  }
 </div>

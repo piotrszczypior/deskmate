@@ -4,8 +4,9 @@
     flex-direction: row;
     padding: 0 300px;
     justify-content: flex-start;
-    gap: 30px;
+    gap: 50px;
     margin-top: 30px;
+    height: 800px;
 
     .upload-container {
       display: flex;
@@ -22,13 +23,40 @@
 
     .canvas-container {
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
+      flex-direction: column;
       flex-grow: 1;
 
       app-image-canvas {
         display: block;
         max-width: 100%;
         margin: 30px 0 auto;
+      }
+
+      .actions-container {
+        display: flex;
+        justify-content: space-between;
+
+        button {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+          width: 250px;
+          height: 40px;
+          border-radius: 1em;
+          font-weight: bold;
+          border: 1px solid black;
+        }
+
+        .back-button {
+          background: white;
+        }
+
+        .continue-button {
+          color: white;
+          background: black;
+        }
       }
     }
   }

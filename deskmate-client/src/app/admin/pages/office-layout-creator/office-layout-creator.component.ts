@@ -3,14 +3,18 @@ import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { MatTab, MatTabGroup } from '@angular/material/tabs';
 import { FileUploaderComponent } from '../../../shared/components/file-uploader/file-uploader.component';
 import { ImageCanvasComponent } from '../../components/image-canvas/image-canvas.component';
+import { IconComponent } from '../../../shared/components/icon/icon.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-office-layout-creator',
-  imports: [MatTabGroup, MatTab, FileUploaderComponent, ImageCanvasComponent],
+  imports: [MatTabGroup, MatTab, FileUploaderComponent, ImageCanvasComponent, IconComponent],
   templateUrl: './office-layout-creator.component.html',
   styleUrl: './office-layout-creator.component.scss',
 })
 export class OfficeLayoutCreatorComponent {
+  constructor(private readonly router: Router) {}
+
   private _imagesUrls: { [key: string]: string } = {};
 
   get imagesUrls(): { [key: string]: string } {
@@ -34,6 +38,12 @@ export class OfficeLayoutCreatorComponent {
     entries.splice(event.currentIndex, 0, movedItem);
 
     this._imagesUrls = Object.fromEntries(entries);
+  }
+
+  onBack(event: Event): void {
+    event.stopPropagation();
+    event.preventDefault();
+    void this.router.navigate(['admin-dashboard']);
   }
 
   protected onFileDeleted(file: File) {

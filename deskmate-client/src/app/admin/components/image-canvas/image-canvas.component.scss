@@ -3,10 +3,14 @@
     position: relative;
     max-width: 100%;
     height: fit-content;
+    display: flex;
+    justify-content: center;
 
     .image {
       width: 600px;
       height: 600px;
+      object-fit: cover;
+      image-rendering: pixelated;
     }
 
     .canvas {

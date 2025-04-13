@@ -13,6 +13,9 @@ export class ImageCanvasComponent implements OnInit {
   @Input({ required: true })
   imageUrl!: string;
 
+  @Input()
+  mode: CanvasMode = 'viewMode';
+
   desks: DeskAnnotation[] = [];
 
   ngOnInit(): void {
@@ -40,4 +43,10 @@ export class ImageCanvasComponent implements OnInit {
     const index = this.desks.indexOf(desk, 0);
     this.desks.splice(index, 1);
   }
+
+  isEditMode(): boolean {
+    return this.mode === 'editMode';
+  }
 }
+
+export type CanvasMode = 'editMode' | 'viewMode';
