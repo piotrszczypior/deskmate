@@ -29,13 +29,19 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
+    // JWT (auth0)
+    implementation("com.auth0:java-jwt:4.0.0")
+
+    // Spring Security
+    implementation("org.springframework.boot:spring-boot-starter-security")
+
     // lombok
     compileOnly("org.projectlombok:lombok")
     annotationProcessor("org.projectlombok:lombok")
 
     // postgres
-    // runtimeOnly("org.postgresql:postgresql")
-    // implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    runtimeOnly("org.postgresql:postgresql")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 }
 
 tasks.withType<Test> {
