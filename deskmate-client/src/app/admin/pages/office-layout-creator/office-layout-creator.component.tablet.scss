@@ -1,0 +1,12 @@
+:host {
+  @media (width > map-get($breakpoints, md)) {
+
+    .creator-page {
+      flex-direction: row;
+
+      .canvas-container {
+        min-height: 700px;
+      }
+    }
+  }
+}

@@ -1,10 +1,8 @@
 :host {
-  width: 650px;
-
+  max-width: var(--component-max-width);
   .buildings-card {
     display: flex;
     flex-direction: column;
     gap: 1em;
-    width: 650px;
   }
 }

@@ -1,0 +1,10 @@
+@import "page";
+@import "breakpoints";
+
+:host {
+  @media (width >= map-get($breakpoints, md)){
+    .admin-dashboard .flex-container {
+      flex-direction: row;
+    }
+  }
+}

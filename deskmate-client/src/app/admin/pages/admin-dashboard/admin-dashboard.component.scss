@@ -1,57 +1,26 @@
-:host {
-  //.admin-dashboard {
-  //  display: flex;
-  //  justify-content: space-between;
-  //  padding: 0 300px;
-  //
-  //  .left-bar {
-  //    display: flex;
-  //    flex-direction: column;
-  //    align-items: center;
-  //    width: 350px;
-  //
-  //    .profile-card {
-  //      width: 100%;
-  //      height: 200px;
-  //      background: red;
-  //      border-radius: 1rem;
-  //    }
-  //
-  //    .buildings-card {
-  //      width: 100%;
-  //      height: 400px;
-  //      background: green;
-  //    }
-  //  }
-  //
-  //  .content {
-  //    flex-grow: 1;
-  //    background-color: #f4f4f4;
-  //  }
-  //}
+@import "page";
+@import "breakpoints";
 
+:host {
   .admin-dashboard {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 0 300px;
     margin-top: 30px;
-    position: relative;
 
-    app-profile-card {
-      display: block;
-      position: absolute;
-      right: 300px;
-      top: 0;
+    .buildings, .editor-card {
+      max-width: var(--component-max-width);
     }
-
-    .buildings {
-      width: 750px;
+    .flex-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-direction: column-reverse;
+      gap: 20px;
     }
 
     .editor-card {
       margin-top: 100px;
-      width: 750px;
 
       .divider {
         width: 100%;
@@ -70,7 +39,6 @@
         align-items: center;
         justify-content: center;
         background-color: white;
-        width: 300px;
         border: 1px solid #e0e0e0;
         border-radius: 1em;
         cursor: pointer;
@@ -78,3 +46,4 @@
     }
   }
 }
+@import 'admin-dashboard.component.tablet';

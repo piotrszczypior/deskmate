@@ -1,27 +1,16 @@
-<!--<div class="admin-dashboard">-->
-<!--  <div class="left-bar">-->
-<!--    <div class="profile-card"> Admin</div>-->
-<!--    <div class="buildings-card">-->
-<!--      <button>-->
-<!--        <app-icon icon="add_circle" />-->
-<!--      </button>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--  <div class="content"></div>-->
-<!--</div>-->
-
-<div class="admin-dashboard">
-  <app-profile-card />
-
-  <div class="buildings">
-    <p
+<div class="page-header"><h1>PAGE TITLE</h1></div>
+<div class="admin-dashboard page-content">
+  <div class="flex-container">
+    <div class="buildings">
+      <p
       >Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-      when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p
-    >
-
-    <ng-container *ngIf="buildings$ | async as buildings">
-      <app-office-building-list [buildings]="buildings" />
-    </ng-container>
+       when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p
+      >
+      <ng-container *ngIf="buildings$ | async as buildings"> <!--TODO: ???-->
+        <app-office-building-list [buildings]="buildings" />
+      </ng-container>
+    </div>
+    <app-profile-card />
   </div>
 
   <div class="editor-card">

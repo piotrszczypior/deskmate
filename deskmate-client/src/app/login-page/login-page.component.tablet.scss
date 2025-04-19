@@ -1,0 +1,21 @@
+:host {
+  @media (width >= map-get($breakpoints, md)) {
+    .login-page {
+      height: 100vh;
+
+      &:before {
+        top: 0;
+      }
+
+      .content-container {
+        position: absolute;
+        top: 0;
+        left: 25px;
+      }
+
+      .form-field {
+        width: var(--component-max-width);
+      }
+    }
+  }
+}
