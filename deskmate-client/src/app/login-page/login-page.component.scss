@@ -1,5 +1,5 @@
-@import "breakpoints";
-@import "page";
+@import 'breakpoints';
+@import 'page';
 
 :host {
   .login-page {
@@ -21,7 +21,7 @@
       top: 100px;
       width: 100%;
       height: 100%;
-      opacity: 0.15;
+      opacity: 0.8;
       z-index: -1;
     }
 
