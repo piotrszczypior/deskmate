@@ -22,7 +22,6 @@ export class FileUploaderComponent {
   private _files: File[] = [];
 
   get files(): File[] {
-    console.log(this._files);
     return this._files;
   }
 
@@ -40,8 +39,4 @@ export class FileUploaderComponent {
     moveItemInArray(this._files, event.previousIndex, event.currentIndex);
     this.filesOrderChanged.emit(event);
   }
-
-  // confirmFloorsConfiguration($event: Event): void {
-  //   this.uploadedFilesEmitter.emit(this._files);
-  // }
 }

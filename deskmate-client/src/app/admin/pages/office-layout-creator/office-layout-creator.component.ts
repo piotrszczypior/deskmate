@@ -1,56 +1,48 @@
 import { Component } from '@angular/core';
-import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { MatTab, MatTabGroup } from '@angular/material/tabs';
 import { FileUploaderComponent } from '../../../shared/components/file-uploader/file-uploader.component';
 import { ImageCanvasComponent } from '../../components/image-canvas/image-canvas.component';
 import { IconComponent } from '../../../shared/components/icon/icon.component';
 import { Router } from '@angular/router';
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
+import { ImagesService } from '../../creator-states/images.service';
+import { ImagesQuery } from '../../creator-states/images.query';
+import { AsyncPipe, NgIf } from '@angular/common';
+import { Image } from '../../creator-states/images.model';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-office-layout-creator',
-  imports: [MatTabGroup, MatTab, FileUploaderComponent, ImageCanvasComponent, IconComponent],
+  imports: [MatTabGroup, MatTab, FileUploaderComponent, ImageCanvasComponent, IconComponent, AsyncPipe, NgIf],
   templateUrl: './office-layout-creator.component.html',
   styleUrl: './office-layout-creator.component.scss',
 })
 export class OfficeLayoutCreatorComponent {
-  constructor(private readonly router: Router) {}
+  constructor(
+    private readonly router: Router,
+    private readonly imagesService: ImagesService,
+    private readonly imagesQuery: ImagesQuery
+  ) {}
 
-  private _imagesUrls: { [key: string]: string } = {};
-
-  get imagesUrls(): { [key: string]: string } {
-    return this._imagesUrls;
+  get images(): Observable<Image[]> {
+    return this.imagesQuery.selectAll();
   }
 
-  //TODO: one file instead of an array
-  onFileSelected(files: File[]) {
-    if (files.length > 0) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        this._imagesUrls[files[0].name] = e.target?.result as string;
-      };
-      reader.readAsDataURL(files[0]);
-    }
+  onFileSelected(files: File[]): void {
+    this.imagesService.storeFile(files);
   }
 
-  onFilesReload(event: CdkDragDrop<string[]>) {
-    const entries = Object.entries(this._imagesUrls);
-    const [movedItem] = entries.splice(event.previousIndex, 1);
-    entries.splice(event.currentIndex, 0, movedItem);
+  onFilesReload(event: CdkDragDrop<string[]>): void {
+    this.imagesService.reorderFiles(event.previousIndex, event.currentIndex);
+  }
 
-    this._imagesUrls = Object.fromEntries(entries);
+  onFileDeleted(file: File): void {
+    this.imagesService.deleteFile(file.name);
   }
 
   onBack(event: Event): void {
     event.stopPropagation();
     event.preventDefault();
     void this.router.navigate(['admin-dashboard']);
-  }
-
-  protected onFileDeleted(file: File) {
-    delete this._imagesUrls[file.name];
-  }
-
-  protected getAllImagesNames(): string[] {
-    return Object.keys(this._imagesUrls);
   }
 }
