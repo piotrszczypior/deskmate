@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ImagesStore } from './images.store';
 import { ImagesQuery } from './images.query';
+import { moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Injectable({ providedIn: 'root' })
 export class ImagesService {
@@ -35,8 +36,9 @@ export class ImagesService {
   reorderFiles(previousIndex: number, currentIndex: number) {
     const images = [...this.query.getAll()];
 
-    const [moved] = images.splice(previousIndex, 1);
-    images.splice(currentIndex, 0, moved);
+    moveItemInArray(images, previousIndex, currentIndex);
+    // const [moved] = images.splice(previousIndex, 1);
+    // images.splice(currentIndex, 0, moved);
 
     this.store.set(images);
   }

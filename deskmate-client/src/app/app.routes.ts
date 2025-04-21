@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { AdminDashboardComponent } from './admin/pages/admin-dashboard/admin-dashboard.component';
 import { OfficeLayoutCreatorComponent } from './admin/pages/office-layout-creator/office-layout-creator.component';
-import { LoginPageComponent } from './login-page/login-page.component';
+import { LoginPageComponent } from './core/auth/login-page/login-page.component';
 
 export const routes: Routes = [
   {

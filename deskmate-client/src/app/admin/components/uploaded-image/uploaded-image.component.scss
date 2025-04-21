@@ -1,0 +1,25 @@
+:host {
+  .uploaded-image {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+    border: 1px solid #707374;
+    border-radius: 8px;
+    background-color: #fafafa;
+
+    .filename {
+      flex: 1;
+      word-wrap: break-word;
+      word-break: break-word;
+      max-width: 405px;
+      flex-wrap: wrap;
+    }
+
+    &.selected {
+      background-color: #e0f7fa;
+    }
+  }
+}

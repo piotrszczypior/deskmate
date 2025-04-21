@@ -1,15 +1,20 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FileUploaderDropZoneComponent } from './file-uploader-drop-zone/file-uploader-drop-zone.component';
 import { CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
 import { UploadedImageComponent } from './images-drag-and-drop/uploaded-image.component';
+import { Image } from '../../../admin/creator/states/uploads/images.model';
+import { FloorItemComponent } from '../floor-item/floor-item.component';
 
 @Component({
   selector: 'app-file-uploader',
-  imports: [FileUploaderDropZoneComponent, CdkDropList, UploadedImageComponent, CdkDrag],
+  imports: [FileUploaderDropZoneComponent, CdkDropList, UploadedImageComponent, CdkDrag, FloorItemComponent],
   templateUrl: './file-uploader.component.html',
   styleUrl: './file-uploader.component.scss',
 })
-export class FileUploaderComponent {
+export class FileUploaderComponent implements OnInit {
+  @Input({ transform: (value: Image[]): File[] => value.map((v) => v.file) })
+  init: File[];
+
   @Output()
   uploadedFilesEmitter = new EventEmitter<File[]>();
 
@@ -23,6 +28,10 @@ export class FileUploaderComponent {
 
   get files(): File[] {
     return this._files;
+  }
+
+  ngOnInit(): void {
+    this._files = this.init ? this.init : [];
   }
 
   uploadedFiles($event: File[]): void {

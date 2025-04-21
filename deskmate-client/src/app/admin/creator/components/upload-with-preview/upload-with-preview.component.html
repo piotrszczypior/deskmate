@@ -1,0 +1,50 @@
+<div class="page-header"><h1>PAGE TITLE</h1></div>
+<div class="creator-page page-content">
+  <div class="upload-container">
+    <p>
+      Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000
+      years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia
+    </p>
+
+    <app-file-uploader
+      (deletedFileEmitter)="onFileDeleted($event)"
+      (filesOrderChanged)="onFilesReload($event)"
+      (uploadedFilesEmitter)="onFileSelected($event)"
+      *ngIf="images | async as images"
+      [init]="images" />
+  </div>
+  <div class="canvas-container">
+    <ng-container *ngIf="images | async as images">
+      <mat-tab-group>
+        @for (image of images; track i; let i = $index) {
+          <mat-tab [label]="'Floor ' + i">
+            <app-image-canvas [imageUrl]="image.url" />
+          </mat-tab>
+        }
+      </mat-tab-group>
+    </ng-container>
+
+    <div>
+      <p
+        >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras malesuada turpis erat. Suspendisse bibendum sit amet nulla sit amet faucibus. Nam in
+        blandit mi, sed tincidunt dui. Praesent tincidunt sit amet tortor sit amet bibendum. Donec sit amet condimentum magna. Nam et posuere arcu. Nulla
+        tellus.</p
+      >
+
+      <div class="actions-container">
+        <button
+          (click)="onPreviousStateClick($event)"
+          class="back-button">
+          <app-icon [icon]="'arrow_circle_left'" />
+          Back
+        </button>
+        <button
+          (click)="onNextStateClick($event)"
+          class="continue-button">
+          Continue
+          <app-icon [icon]="'arrow_circle_right'" />
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
