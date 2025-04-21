@@ -1,12 +1,15 @@
 :host {
   .page-content {
-    margin: 0 300px;
     display: flex;
     flex-direction: row;
     gap: 20px;
+    margin: 0 auto;
 
     .floors-list {
-      width: var(--component-max-width);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      width: 400px;
     }
   }
 

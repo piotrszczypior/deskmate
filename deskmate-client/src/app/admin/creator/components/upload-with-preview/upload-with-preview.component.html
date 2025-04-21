@@ -9,7 +9,9 @@
     <app-file-uploader
       (deletedFileEmitter)="onFileDeleted($event)"
       (filesOrderChanged)="onFilesReload($event)"
-      (uploadedFilesEmitter)="onFileSelected($event)" />
+      (uploadedFilesEmitter)="onFileSelected($event)"
+      *ngIf="images | async as images"
+      [init]="images" />
   </div>
   <div class="canvas-container">
     <ng-container *ngIf="images | async as images">
