@@ -1,5 +1,5 @@
-@import "breakpoints";
-@import "page";
+@import 'breakpoints';
+@import 'page';
 
 :host {
   .creator-page {
@@ -37,6 +37,7 @@
         display: flex;
         justify-content: space-between;
         gap: 10px;
+
         button {
           display: flex;
           flex-direction: row;
@@ -47,6 +48,7 @@
           border-radius: 1em;
           font-weight: bold;
           border: 1px solid black;
+          cursor: pointer;
         }
 
         .back-button {
@@ -61,4 +63,5 @@
     }
   }
 }
-@import 'office-layout-creator.component.tablet';
+
+@import 'upload-with-preview.component.tablet';

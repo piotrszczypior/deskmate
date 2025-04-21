@@ -1,48 +1,38 @@
 import { Component } from '@angular/core';
-import { MatTab, MatTabGroup } from '@angular/material/tabs';
-import { FileUploaderComponent } from '../../../shared/components/file-uploader/file-uploader.component';
-import { ImageCanvasComponent } from '../../components/image-canvas/image-canvas.component';
-import { IconComponent } from '../../../shared/components/icon/icon.component';
-import { Router } from '@angular/router';
-import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { ImagesService } from '../../creator-states/images.service';
-import { ImagesQuery } from '../../creator-states/images.query';
-import { AsyncPipe, NgIf } from '@angular/common';
-import { Image } from '../../creator-states/images.model';
 import { Observable } from 'rxjs';
+import { AsyncPipe, NgIf } from '@angular/common';
+import { CurrentState, States } from '../../creator/states/state.model';
+import { UploadWithPreviewComponent } from '../../creator/components/upload-with-preview/upload-with-preview.component';
+import { StateService } from '../../creator/states/state.service';
+import { Router } from '@angular/router';
+import { SeatingAnnotatorComponent } from '../../creator/components/seating-annotator/seating-annotator.component';
 
 @Component({
   selector: 'app-office-layout-creator',
-  imports: [MatTabGroup, MatTab, FileUploaderComponent, ImageCanvasComponent, IconComponent, AsyncPipe, NgIf],
+  imports: [AsyncPipe, NgIf, UploadWithPreviewComponent, SeatingAnnotatorComponent],
   templateUrl: './office-layout-creator.component.html',
-  styleUrl: './office-layout-creator.component.scss',
 })
 export class OfficeLayoutCreatorComponent {
+  protected readonly States = States;
+
   constructor(
-    private readonly router: Router,
-    private readonly imagesService: ImagesService,
-    private readonly imagesQuery: ImagesQuery
+    private readonly stateService: StateService,
+    private readonly router: Router
   ) {}
 
-  get images(): Observable<Image[]> {
-    return this.imagesQuery.selectAll();
+  get currentState$(): Observable<CurrentState> {
+    return this.stateService.getCurrentState$();
   }
 
-  onFileSelected(files: File[]): void {
-    this.imagesService.storeFile(files);
+  onExit(): void {
+    void this.router.navigateByUrl('admin-dashboard');
   }
 
-  onFilesReload(event: CdkDragDrop<string[]>): void {
-    this.imagesService.reorderFiles(event.previousIndex, event.currentIndex);
+  onNextState(): void {
+    this.stateService.transitionToNextState();
   }
 
-  onFileDeleted(file: File): void {
-    this.imagesService.deleteFile(file.name);
-  }
-
-  onBack(event: Event): void {
-    event.stopPropagation();
-    event.preventDefault();
-    void this.router.navigate(['admin-dashboard']);
+  onPreviousState(): void {
+    this.stateService.transitionToPreviousState();
   }
 }
