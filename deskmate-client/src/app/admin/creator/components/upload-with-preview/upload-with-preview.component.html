@@ -18,7 +18,9 @@
       <mat-tab-group>
         @for (image of images; track i; let i = $index) {
           <mat-tab [label]="'Floor ' + i">
-            <app-image-canvas [imageUrl]="image.url" />
+            <ng-template matTabContent>
+              <app-image-canvas-with-zoom [imageUrl]="image.url" />
+            </ng-template>
           </mat-tab>
         }
       </mat-tab-group>
@@ -31,20 +33,9 @@
         tellus.</p
       >
 
-      <div class="actions-container">
-        <button
-          (click)="onPreviousStateClick($event)"
-          class="back-button">
-          <app-icon [icon]="'arrow_circle_left'" />
-          Back
-        </button>
-        <button
-          (click)="onNextStateClick($event)"
-          class="continue-button">
-          Continue
-          <app-icon [icon]="'arrow_circle_right'" />
-        </button>
-      </div>
+      <app-creator-navigation-buttons-gruop
+        (onBackClick)="onPreviousStateClick()"
+        (onContinueClick)="onNextStateClick()" />
     </div>
   </div>
 </div>

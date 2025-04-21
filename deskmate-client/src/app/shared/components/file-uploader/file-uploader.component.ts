@@ -13,7 +13,7 @@ import { FloorItemComponent } from '../floor-item/floor-item.component';
 })
 export class FileUploaderComponent implements OnInit {
   @Input({ transform: (value: Image[]): File[] => value.map((v) => v.file) })
-  init: File[];
+  init: File[] = [];
 
   @Output()
   uploadedFilesEmitter = new EventEmitter<File[]>();

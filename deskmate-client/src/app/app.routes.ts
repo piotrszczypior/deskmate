@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { AdminDashboardComponent } from './admin/pages/admin-dashboard/admin-dashboard.component';
 import { OfficeLayoutCreatorComponent } from './admin/pages/office-layout-creator/office-layout-creator.component';
 import { LoginPageComponent } from './core/auth/login-page/login-page.component';
+import { DemoComponent } from './demo/demo.component';
 
 export const routes: Routes = [
   {
@@ -20,5 +21,9 @@ export const routes: Routes = [
   {
     path: 'office-creator',
     component: OfficeLayoutCreatorComponent,
+  },
+  {
+    path: 'demo',
+    component: DemoComponent,
   },
 ];
