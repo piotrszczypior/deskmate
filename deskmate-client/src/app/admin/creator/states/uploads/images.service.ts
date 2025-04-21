@@ -20,12 +20,11 @@ export class ImagesService {
           file: file,
           url: e.target?.result as string,
         };
-        console.log(image);
 
         this.store.add(image);
       };
 
-      reader.readAsDataURL(files[0]);
+      reader.readAsDataURL(file);
     });
   }
 

@@ -13,19 +13,11 @@
   </div>
 
   <div class="annotator-container">
-    <app-image-canvas [imageUrl]="selectedImage.url" />
+    <!--    <app-image-canvas-with-zoom [imageUrl]="selectedImage.url" />-->
+    <app-canvas-with-markings [imageUrl]="selectedImage.url" />
+
+    <app-creator-navigation-buttons-gruop
+      (onBackClick)="onPreviousStateClick()"
+      (onContinueClick)="onNextStateClick()" />
   </div>
 </div>
-
-<button
-  (click)="onPreviousStateClick($event)"
-  class="back-button">
-  <app-icon [icon]="'arrow_circle_left'" />
-  Back
-</button>
-<button
-  (click)="onNextStateClick($event)"
-  class="continue-button">
-  Continue
-  <app-icon [icon]="'arrow_circle_right'" />
-</button>

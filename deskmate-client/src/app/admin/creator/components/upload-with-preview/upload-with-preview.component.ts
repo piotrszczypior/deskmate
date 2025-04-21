@@ -1,22 +1,34 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core';
 import { FileUploaderComponent } from '../../../../shared/components/file-uploader/file-uploader.component';
-import { MatTab, MatTabGroup } from '@angular/material/tabs';
-import { ImageCanvasComponent } from '../../../components/image-canvas/image-canvas.component';
-import { IconComponent } from '../../../../shared/components/icon/icon.component';
 import { AsyncPipe, NgIf } from '@angular/common';
 import { Observable } from 'rxjs';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Image } from '../../states/uploads/images.model';
 import { ImagesQuery } from '../../states/uploads/images.query';
 import { ImagesService } from '../../states/uploads/images.service';
+import { ImageCanvasWithZoom } from '../../../components/image-canvas-with-zoom/image-canvas-with-zoom.component';
+import { MatTab, MatTabContent, MatTabGroup } from '@angular/material/tabs';
+import { CreatorNavigationButtonsGruopComponent } from '../../../components/creator-navigation-buttons-gruop/creator-navigation-buttons-gruop.component';
 
 @Component({
   selector: 'app-upload-with-preview',
-  imports: [FileUploaderComponent, MatTabGroup, ImageCanvasComponent, MatTab, IconComponent, NgIf, AsyncPipe],
+  imports: [
+    FileUploaderComponent,
+    NgIf,
+    AsyncPipe,
+    ImageCanvasWithZoom,
+    MatTab,
+    MatTabGroup,
+    MatTabContent,
+    CreatorNavigationButtonsGruopComponent,
+  ],
   templateUrl: './upload-with-preview.component.html',
   styleUrl: './upload-with-preview.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UploadWithPreviewComponent {
+  currentTab: number = 0;
+
   @Output()
   onPreviousState = new EventEmitter();
 
@@ -44,15 +56,11 @@ export class UploadWithPreviewComponent {
     this.imagesService.deleteFile(file.name);
   }
 
-  onPreviousStateClick($event: Event): void {
-    $event.preventDefault();
-    $event.stopPropagation();
+  onPreviousStateClick(): void {
     this.onPreviousState.emit();
   }
 
-  onNextStateClick($event: Event): void {
-    $event.preventDefault();
-    $event.stopPropagation();
+  onNextStateClick(): void {
     this.onNextState.emit();
   }
 }
