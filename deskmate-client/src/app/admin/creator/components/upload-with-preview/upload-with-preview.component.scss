@@ -1,0 +1,39 @@
+@import 'breakpoints';
+@import 'page';
+
+:host {
+  .creator-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 50px;
+
+    .upload-container {
+      max-width: var(--component-max-width);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      margin: 0 auto;
+
+      app-file-uploader {
+        display: block;
+        margin-top: 20px;
+      }
+    }
+
+    .canvas-container {
+      display: flex;
+      justify-content: space-between;
+      flex-direction: column;
+      flex-grow: 1;
+
+      app-image-canvas-with-zoom {
+        display: block;
+        margin: 30px 0 auto;
+      }
+    }
+  }
+}
+
+@import 'upload-with-preview.component.tablet';

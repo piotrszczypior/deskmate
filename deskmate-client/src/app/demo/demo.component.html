@@ -1,0 +1,6 @@
+<div>
+  <app-file-uploader (uploadedFilesEmitter)="onUploadedImage($event)" />
+  @if (imageUrl) {
+    <app-image-canvas-with-zoom [imageUrl]="imageUrl" />
+  }
+</div>

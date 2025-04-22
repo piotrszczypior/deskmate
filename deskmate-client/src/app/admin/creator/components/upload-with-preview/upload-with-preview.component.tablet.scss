@@ -1,6 +1,5 @@
 :host {
-  @media (width > map-get($breakpoints, md)) {
-
+  @media (width > map-get($breakpoints, lg)) {
     .creator-page {
       flex-direction: row;
 

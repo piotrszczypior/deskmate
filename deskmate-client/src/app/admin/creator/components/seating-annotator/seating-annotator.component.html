@@ -1,0 +1,23 @@
+<div class="page-content">
+  <div
+    *ngIf="images | async as uploadedImages"
+    class="floors-list">
+    @for (image of uploadedImages; track $index) {
+      <app-floor-item [floorNumber]="$index">
+        <app-uploaded-image
+          [image]="image"
+          [isSelected]="selectedImage.file.name === image.file.name"
+          (click)="onSelectImage(image)" />
+      </app-floor-item>
+    }
+  </div>
+
+  <div class="annotator-container">
+    <!--    <app-image-canvas-with-zoom [imageUrl]="selectedImage.url" />-->
+    <app-canvas-with-markings [imageUrl]="selectedImage.url" />
+
+    <app-creator-navigation-buttons-gruop
+      (onBackClick)="onPreviousStateClick()"
+      (onContinueClick)="onNextStateClick()" />
+  </div>
+</div>

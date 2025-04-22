@@ -11,9 +11,6 @@ export class UploadedImageComponent {
   @Input()
   image: File | undefined;
 
-  @Input()
-  floorNumber: number | undefined;
-
   @Output()
   onDeletedImage = new EventEmitter<void>();
 

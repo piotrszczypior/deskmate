@@ -2,18 +2,16 @@
   <app-file-uploader-drop-zone (uploadedFileEmitter$)="uploadedFiles($event)" />
 
   <div
-      (cdkDropListDropped)="drop($event)"
-      cdkDropList
-      class="drag-and-drop-container">
+    (cdkDropListDropped)="drop($event)"
+    cdkDropList
+    class="drag-and-drop-container">
     @for (file of files; track $index) {
-      <div class="upload">
-        Floor {{ $index }}
-        <hr class="divider" />
+      <app-floor-item [floorNumber]="$index">
         <app-uploaded-image
-            [image]="file"
-            cdkDrag
-            (onDeletedImage)="deletedFile(file)" />
-      </div>
+          [image]="file"
+          cdkDrag
+          (onDeletedImage)="deletedFile(file)" />
+      </app-floor-item>
     }
   </div>
 </div>
