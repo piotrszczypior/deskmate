@@ -6,10 +6,11 @@ import { AsyncPipe, NgIf } from '@angular/common';
 import { UploadedImageComponent } from '../../../components/uploaded-image/uploaded-image.component';
 import { ImageCanvasComponent } from '../../../components/image-canvas/image-canvas.component';
 import { IconComponent } from '../../../../shared/components/icon/icon.component';
+import { FloorItemComponent } from '../../../../shared/components/floor-item/floor-item.component';
 
 @Component({
   selector: 'app-seating-annotator',
-  imports: [NgIf, AsyncPipe, UploadedImageComponent, ImageCanvasComponent, IconComponent],
+  imports: [NgIf, AsyncPipe, UploadedImageComponent, ImageCanvasComponent, IconComponent, FloorItemComponent],
   templateUrl: './seating-annotator.component.html',
   styleUrl: './seating-annotator.component.scss',
 })

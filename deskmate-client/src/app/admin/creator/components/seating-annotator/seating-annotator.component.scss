@@ -10,6 +10,17 @@
       flex-direction: column;
       gap: 20px;
       width: 400px;
+
+      .divider {
+        height: 2px;
+        color: #ccc;
+        background: #ccc;
+        padding: 0 50px;
+        font-size: 0;
+        border: 0;
+        margin-bottom: 15px;
+        margin-top: 5px;
+      }
     }
   }
 

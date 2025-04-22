@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { HeaderBarComponent } from './header-bar/header-bar.component';
+import { HeaderBarComponent } from './core/navigation/header-bar/header-bar.component';
 
 @Component({
   selector: 'app-root',

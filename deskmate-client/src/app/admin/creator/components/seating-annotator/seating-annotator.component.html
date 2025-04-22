@@ -3,10 +3,12 @@
     *ngIf="images | async as uploadedImages"
     class="floors-list">
     @for (image of uploadedImages; track $index) {
-      <app-uploaded-image
-        [image]="image"
-        [isSelected]="selectedImage.file.name === image.file.name"
-        (click)="onSelectImage(image)" />
+      <app-floor-item [floorNumber]="$index">
+        <app-uploaded-image
+          [image]="image"
+          [isSelected]="selectedImage.file.name === image.file.name"
+          (click)="onSelectImage(image)" />
+      </app-floor-item>
     }
   </div>
 

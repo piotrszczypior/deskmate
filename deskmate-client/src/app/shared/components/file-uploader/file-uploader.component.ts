@@ -3,10 +3,11 @@ import { FileUploaderDropZoneComponent } from './file-uploader-drop-zone/file-up
 import { CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
 import { UploadedImageComponent } from './images-drag-and-drop/uploaded-image.component';
 import { Image } from '../../../admin/creator/states/uploads/images.model';
+import { FloorItemComponent } from '../floor-item/floor-item.component';
 
 @Component({
   selector: 'app-file-uploader',
-  imports: [FileUploaderDropZoneComponent, CdkDropList, UploadedImageComponent, CdkDrag],
+  imports: [FileUploaderDropZoneComponent, CdkDropList, UploadedImageComponent, CdkDrag, FloorItemComponent],
   templateUrl: './file-uploader.component.html',
   styleUrl: './file-uploader.component.scss',
 })
