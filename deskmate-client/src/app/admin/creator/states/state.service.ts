@@ -2,12 +2,16 @@ import { Injectable } from '@angular/core';
 import { CurrentState, States } from './state.model';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ImagesQuery } from './uploads/images.query';
+import { ImagesService } from './uploads/images.service';
 
 @Injectable({ providedIn: 'root' })
 export class StateService {
   private readonly currentState$ = new BehaviorSubject<CurrentState>({ state: States.UPLOAD_STATE });
 
-  constructor(private readonly imagesQuery: ImagesQuery) {}
+  constructor(
+    private readonly imagesQuery: ImagesQuery,
+    private readonly imagesService: ImagesService
+  ) {}
 
   getCurrentState$(): Observable<CurrentState> {
     return this.currentState$.asObservable();
@@ -42,6 +46,11 @@ export class StateService {
         this.currentState$.next({ state: States.ANNOTATION_STATE });
         break;
     }
+  }
+
+  resetCreator(): void {
+    this.currentState$.next({ state: States.UPLOAD_STATE });
+    this.imagesService.reset();
   }
 
   private canTransitFromUploadState(): boolean {

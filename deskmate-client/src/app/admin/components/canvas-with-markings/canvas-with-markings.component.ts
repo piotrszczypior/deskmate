@@ -1,4 +1,14 @@
-import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
 import { CanvasConfig, CanvasService } from '../../canvas.service';
 
 @Component({
@@ -7,18 +17,21 @@ import { CanvasConfig, CanvasService } from '../../canvas.service';
   templateUrl: './canvas-with-markings.component.html',
   styleUrl: './canvas-with-markings.component.scss',
 })
-export class CanvasWithMarkingsComponent implements AfterViewInit {
+export class CanvasWithMarkingsComponent implements AfterViewInit, OnChanges {
   @Input({ required: true })
   imageUrl: string;
 
+  @Output()
+  markedPlaces = new EventEmitter<Point[]>();
+
   @ViewChild('canvas')
   canvasRef!: ElementRef<HTMLCanvasElement>;
+  @Input({ required: true })
+  selectedPlaces: Point[];
 
   private image = new Image();
   private context!: CanvasRenderingContext2D;
-
   private CANVAS_CONFIG: CanvasConfig;
-
   private marks: Point[] = [];
 
   constructor(private readonly canvasService: CanvasService) {}
@@ -29,11 +42,35 @@ export class CanvasWithMarkingsComponent implements AfterViewInit {
 
     this.image.onload = () => {
       this.resizeCanvas();
+      this.marks = this.selectedPlaces;
       this.draw();
     };
     this.image.src = this.imageUrl;
 
     canvas.addEventListener('mousedown', this.onMouseDown.bind(this));
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['selectedPlaces']) {
+      this.marks = [...this.selectedPlaces];
+    }
+
+    if (changes['imageUrl'] && !changes['imageUrl'].firstChange && this.context) {
+      this.image.onload = () => {
+        this.resizeCanvas();
+        this.marks = [...this.selectedPlaces];
+        this.draw();
+      };
+      this.image.src = this.imageUrl;
+    }
+  }
+
+  clearMarkings(event: Event): void {
+    event.stopPropagation();
+    event.preventDefault();
+    this.marks = [];
+    this.markedPlaces.emit(this.marks);
+    this.draw();
   }
 
   private draw(): void {
@@ -83,6 +120,7 @@ export class CanvasWithMarkingsComponent implements AfterViewInit {
     if (this.checkIfPointIsWithinImage(pointPositions)) {
       this.marks.push(pointPositions);
       this.draw();
+      this.markedPlaces.emit(this.marks);
     }
   }
 
@@ -99,7 +137,7 @@ export class CanvasWithMarkingsComponent implements AfterViewInit {
   }
 }
 
-interface Point {
+export interface Point {
   x: number;
   y: number;
 }

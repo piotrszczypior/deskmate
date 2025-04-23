@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ImagesStore } from './images.store';
 import { ImagesQuery } from './images.query';
-import { moveItemInArray } from '@angular/cdk/drag-drop';
+import { moveItemInArray, Point } from '@angular/cdk/drag-drop';
 
 @Injectable({ providedIn: 'root' })
 export class ImagesService {
@@ -40,5 +40,21 @@ export class ImagesService {
     // images.splice(currentIndex, 0, moved);
 
     this.store.set(images);
+  }
+
+  reset(): void {
+    this.store.reset();
+  }
+
+  storeDesksCoordinates(id: string, marks: Point[]) {
+    const exists = this.query.hasEntity(id);
+
+    if (exists) {
+      console.log(marks);
+
+      this.store.update(id, {
+        marks: [...marks],
+      });
+    }
   }
 }

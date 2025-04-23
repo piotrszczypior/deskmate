@@ -1,3 +1,4 @@
+<div class="page-header"><h1>PAGE TITLE</h1></div>
 <div class="page-content">
   <div
     *ngIf="images | async as uploadedImages"
@@ -10,11 +11,25 @@
           (click)="onSelectImage(image)" />
       </app-floor-item>
     }
+
+    <app-marked-desks-list
+      *ngIf="selectedSeats$ | async as seats"
+      [marks]="seats" />
   </div>
 
   <div class="annotator-container">
-    <!--    <app-image-canvas-with-zoom [imageUrl]="selectedImage.url" />-->
-    <app-canvas-with-markings [imageUrl]="selectedImage.url" />
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas feugiat blandit orci in hendrerit. Vestibulum ac ornare magna. Pellentesque congue
+      ligula eu sagittis porttitor. Duis consectetur, nibh ut faucibus condimentum, nibh erat pharetra erat, non vestibulum risus elit posuere diam. Proin sit
+      amet nisi libero. In non ligula eros. Sed sed nibh id nisi volutpat malesuada vel non justo. Proin laoreet non velit vel suscipit. Ut blandit ipsum vel
+      placerat aliquet.
+    </p>
+
+    <app-canvas-with-markings
+      (markedPlaces)="onMarkedPlaces($event)"
+      *ngIf="selectedSeats$ | async as seats"
+      [imageUrl]="selectedImage.url"
+      [selectedPlaces]="seats" />
 
     <app-creator-navigation-buttons-gruop
       (onBackClick)="onPreviousStateClick()"

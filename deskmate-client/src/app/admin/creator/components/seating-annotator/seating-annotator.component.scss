@@ -1,15 +1,24 @@
+@import 'page';
+
 :host {
   .page-content {
     display: flex;
-    flex-direction: row;
-    gap: 20px;
-    margin: 0 300px;
+    gap: 40px;
+    //margin: 0 300px;
+    height: fit-content;
 
     .floors-list {
       display: flex;
       flex-direction: column;
-      gap: 20px;
       width: 400px;
+      height: 100%;
+      flex-grow: 1;
+    }
+
+    .annotator-container {
+      display: flex;
+      width: 1000px;
+      flex-direction: column;
     }
   }
 }
