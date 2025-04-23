@@ -1,0 +1,45 @@
+<div class="marked-locations-container">
+  <div class="header">
+    <p>Selected Desks</p>
+    <span class="badge">{{ marks.length }} spots</span>
+  </div>
+
+  @if (marks.length > 0) {
+    <div class="locations-list">
+      @for (mark of marks; track $index) {
+        <div class="location-item">
+          <div class="location-icon">
+            <i class="fas fa-map-marker-alt"></i>
+          </div>
+          <div class="location-details" (click)="onSelect($index)">
+            <h3>Desk #{{ $index + 1 }}</h3>
+            <div class="location-coordinates">
+              <span class="coordinate">x: {{ mark.x.toFixed(0) }}</span>
+              <span class="coordinate">y: {{ mark.y.toFixed(0) }}</span>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  } @else {
+    <div class="empty-state">
+      <i class="fas fa-info-circle"></i>
+      <p>No desk locations marked yet. Click on the floor plan to mark available desks.</p>
+    </div>
+  }
+
+  <div class="actions">
+    <!--    <button-->
+    <!--      (click)="clearAllLocations()"-->
+    <!--      [disabled]="locations.length === 0"-->
+    <!--      class="btn-clear">-->
+    <!--      Clear All-->
+    <!--    </button>-->
+    <!--    <button-->
+    <!--      (click)="saveLocations()"-->
+    <!--      [disabled]="locations.length === 0"-->
+    <!--      class="btn-save">-->
+    <!--      Save Locations-->
+    <!--    </button>-->
+  </div>
+</div>

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
 import { CanvasService } from '../../canvas.service';
 
 @Component({
@@ -7,7 +7,7 @@ import { CanvasService } from '../../canvas.service';
   templateUrl: './image-canvas-with-zoom.component.html',
   styleUrl: './image-canvas-with-zoom.component.scss',
 })
-export class ImageCanvasWithZoom implements AfterViewInit {
+export class ImageCanvasWithZoom implements AfterViewInit, OnChanges {
   @Input({ required: true }) imageUrl: string;
   @ViewChild('canvas') canvasRef!: ElementRef<HTMLCanvasElement>;
 
@@ -25,6 +25,17 @@ export class ImageCanvasWithZoom implements AfterViewInit {
   private lastY = 0;
 
   constructor(private readonly canvasService: CanvasService) {}
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['imageUrl'] && !changes['imageUrl'].firstChange && this.context) {
+      this.image.onload = () => {
+        this.resizeCanvas();
+        this.initializeImageInCenterOfCanvas();
+        this.draw();
+      };
+      this.image.src = this.imageUrl;
+    }
+  }
 
   ngAfterViewInit(): void {
     const canvas = this.canvasRef.nativeElement;
