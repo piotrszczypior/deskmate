@@ -14,3 +14,8 @@ VALUES ('user3', 'user3@example.com', '$2a$10$paWcoAGkFwu.rAeNNcfPv.FfRelOjwSuYw
 
 INSERT INTO assets (name, path, mime_type)
 VALUES ('office-plan.png', 'office-plan.png', 'image/png');
+
+INSERT INTO buildings (name) VALUES ('A1');
+
+INSERT INTO floors (building_id, plan, name)
+VALUES (1, 1, 'F1');

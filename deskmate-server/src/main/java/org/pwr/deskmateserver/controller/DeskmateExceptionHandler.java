@@ -4,6 +4,8 @@ import org.pwr.deskmateserver.dto.ErrorDTO;
 import org.pwr.deskmateserver.exceptions.NotFoundException;
 import org.pwr.deskmateserver.exceptions.UnknownUserException;
 import org.pwr.deskmateserver.exceptions.UserAlreadyExistsException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -22,12 +24,16 @@ public class DeskmateExceptionHandler {
         Map.entry(Exception.class, HttpStatus.INTERNAL_SERVER_ERROR)
     );
 
+    private final Logger logger = LoggerFactory.getLogger(DeskmateExceptionHandler.class);
+
     @ExceptionHandler
     public ResponseEntity<Object> handle(Exception e, WebRequest request) {
+        logger.error("Error", e);
         HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
         for(Class<?> exceptionClass : statusMap.keySet()) {
             if(exceptionClass.isInstance(e)) {
-                   status = statusMap.get(exceptionClass);
+               status = statusMap.get(exceptionClass);
+               break;
             }
         }
 
