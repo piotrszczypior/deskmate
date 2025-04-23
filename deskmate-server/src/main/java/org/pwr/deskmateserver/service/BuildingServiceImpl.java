@@ -15,15 +15,17 @@ import java.util.Optional;
 
 @AllArgsConstructor
 @Service
-public class BuildingServiceImpl {
+public class BuildingServiceImpl implements BuildingService {
     private BuildingRepository repository;
 
     private AssetRepository assetRepository;
 
+    @Override
     public List<BuildingDTO> getAll() {
         return repository.findAll().stream().map(BuildingDTO::from).toList();
     }
 
+    @Override
     public BuildingDTO getOne(Long id) throws NotFoundException {
         Optional<Building> b = repository.findById(id);
 
@@ -34,6 +36,7 @@ public class BuildingServiceImpl {
         return BuildingDTO.from(b.get());
     }
 
+    @Override
     public BuildingDTO createBuilding(CreateBuildingDTO building) throws NotFoundException {
         Building newBuilding = Building.builder()
             .name(building.getName())
@@ -46,6 +49,7 @@ public class BuildingServiceImpl {
         return BuildingDTO.from(repository.findById(newBuilding.getId()).get());
     }
 
+    @Override
     public FloorDTO createFloor(CreateFloorDTO floorDTO) throws NotFoundException {
         Optional<Building> building = repository.findById(floorDTO.getBuildingId());
         Optional<Asset> asset = assetRepository.findById(floorDTO.getAssetId());
