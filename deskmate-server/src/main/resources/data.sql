@@ -19,3 +19,9 @@ INSERT INTO buildings (name) VALUES ('A1');
 
 INSERT INTO floors (building_id, plan, name)
 VALUES (1, 1, 'F1');
+
+INSERT INTO seats (x, y)
+VALUES (0, 0), (10, 10), (50, 30), (20, 30), (100, 60);
+
+INSERT INTO seat_floor_links (floor_id, seat_id)
+VALUES (1, 1), (1, 2), (1, 3), (1, 4), (1, 5);
