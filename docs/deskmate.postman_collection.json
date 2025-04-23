@@ -25,10 +25,39 @@
 			"response": []
 		},
 		{
+			"name": "buildings/{id}",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{apiUrl}}/api/v1/buildings/1",
+					"host": [
+						"{{apiUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"buildings",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "buildings",
 			"request": {
 				"method": "POST",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"A1\",\n    \"floors\": [\n        {\n            \"name\": \"Basement\",\n            \"assetId\": 1\n        },\n        {\n            \"name\": \"First floor\",\n            \"assetId\": 1\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
 					"raw": "{{apiUrl}}/api/v1/buildings",
 					"host": [
@@ -38,6 +67,112 @@
 						"api",
 						"v1",
 						"buildings"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "floors",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"F1\",\n    \"assetId\": 1,\n    \"buildingId\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{apiUrl}}/api/v1/building/floor",
+					"host": [
+						"{{apiUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"building",
+						"floor"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "seats",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{apiUrl}}/api/v1/seats/1",
+					"host": [
+						"{{apiUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"seats",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "seats",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    {\"x\": 0, \"y\": 5},\n    {\"x\": 10, \"y\": 60},\n    {\"x\": 20, \"y\": 70},\n    {\"x\": 30, \"y\": 80},\n    {\"x\": 100, \"y\": 100}\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{apiUrl}}/api/v1/seats/1",
+					"host": [
+						"{{apiUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"seats",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "seats",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[2, 4]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{apiUrl}}/api/v1/seats",
+					"host": [
+						"{{apiUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"seats"
 					]
 				}
 			},
