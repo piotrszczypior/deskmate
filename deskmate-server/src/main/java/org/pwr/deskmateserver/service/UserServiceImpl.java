@@ -1,5 +1,6 @@
 package org.pwr.deskmateserver.service;
 
+import lombok.AllArgsConstructor;
 import org.pwr.deskmateserver.dto.JwtResultDTO;
 import org.pwr.deskmateserver.dto.LoginDTO;
 import org.pwr.deskmateserver.dto.RegisterDTO;
@@ -17,19 +18,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
+@AllArgsConstructor
 public class UserServiceImpl implements UserService {
-
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final UserAuthenticationProvider userAuthenticationProvider;
     private final OfficeWorkerRepository officeWorkerRepository;
-
-    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, UserAuthenticationProvider userAuthenticationProvider, OfficeWorkerRepository officeWorkerRepository) {
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
-        this.userAuthenticationProvider = userAuthenticationProvider;
-        this.officeWorkerRepository = officeWorkerRepository;
-    }
 
     private UserDTO toUserDto(User newUser) {
         return UserDTO.builder()
