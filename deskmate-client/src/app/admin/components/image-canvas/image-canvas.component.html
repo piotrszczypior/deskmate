@@ -1,22 +1,14 @@
-<div class="image-canvas">
-  <img
-    #image
-    [src]="imageUrl"
-    alt=""
-    class="image" />
-
-  @if (isEditMode()) {
-    <div
-      (click)="addDesk($event)"
-      class="canvas">
-      @for (desk of desks; track desk.id) {
-        <div
-          (click)="removeDesk(desk, $event)"
-          [style.left.px]="desk.x"
-          [style.top.px]="desk.y"
-          class="desk-marker">
-        </div>
-      }
-    </div>
+<canvas #canvas></canvas>
+<div class="controls">
+  @if (allowPointing) {
+    <button (click)="toggleMoving()"
+            [disabled]="this.isCursorInMoveMode()">MOVE
+    </button>
+    <button (click)="togglePointing()"
+            [disabled]="!this.isCursorInMoveMode()">MARK
+    </button>
   }
+  <button (click)="zoomIn()">+</button>
+  <button (click)="zoomOut()">-</button>
+  <button (click)="resetView()">Reset</button>
 </div>

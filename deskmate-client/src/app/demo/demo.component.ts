@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
-import { FileUploaderComponent } from '../shared/components/file-uploader/file-uploader.component';
-import { ImageCanvasWithZoom } from '../admin/components/image-canvas-with-zoom/image-canvas-with-zoom.component';
+import {Component} from '@angular/core';
+import {FileUploaderComponent} from '../shared/components/file-uploader/file-uploader.component';
+import {ImageCanvasComponent} from '../admin/components/image-canvas/image-canvas.component';
+
 
 @Component({
   selector: 'app-demo',
-  imports: [ImageCanvasWithZoom, FileUploaderComponent],
+  imports: [FileUploaderComponent, ImageCanvasComponent],
   templateUrl: './demo.component.html',
   styleUrl: './demo.component.scss',
 })
