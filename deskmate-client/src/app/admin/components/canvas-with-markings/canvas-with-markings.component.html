@@ -1,8 +1,8 @@
 <div class="canvas-container">
-  <canvas
-    #canvas
-    class="annotator-canvas"></canvas>
-    <div class="controls">
-      <button (click)="clearMarkings($event)">Clear</button>
-    </div>
+  <app-image-canvas (canvasClick)="markPlace($event)"
+                    (pointClick)="deletePlace($event)"
+                    [allowPointing]="true"
+                    [imageUrl]="imageUrl"
+                    [points]="canvasMarks"
+  />
 </div>
