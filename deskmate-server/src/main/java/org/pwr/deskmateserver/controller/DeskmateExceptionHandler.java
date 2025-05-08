@@ -1,6 +1,7 @@
 package org.pwr.deskmateserver.controller;
 
 import org.pwr.deskmateserver.dto.ErrorDTO;
+import org.pwr.deskmateserver.exceptions.CollisionException;
 import org.pwr.deskmateserver.exceptions.NotFoundException;
 import org.pwr.deskmateserver.exceptions.UnknownUserException;
 import org.pwr.deskmateserver.exceptions.UserAlreadyExistsException;
@@ -13,16 +14,22 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 @ControllerAdvice(annotations = RestController.class)
 public class DeskmateExceptionHandler {
-    private static final Map<Class<? extends Exception>, HttpStatus> statusMap = Map.ofEntries(
-        Map.entry(NotFoundException.class, HttpStatus.NOT_FOUND),
-        Map.entry(UserAlreadyExistsException.class, HttpStatus.CONFLICT),
-        Map.entry(UnknownUserException.class, HttpStatus.BAD_REQUEST),
-        Map.entry(Exception.class, HttpStatus.INTERNAL_SERVER_ERROR)
-    );
+    private static final Map<Class<? extends Exception>, HttpStatus> statusMap;
+
+    static {
+        Map<Class<? extends Exception>, HttpStatus> map = new LinkedHashMap<>();
+        map.put(NotFoundException.class, HttpStatus.NOT_FOUND);
+        map.put(UserAlreadyExistsException.class, HttpStatus.CONFLICT);
+        map.put(UnknownUserException.class, HttpStatus.BAD_REQUEST);
+        map.put(CollisionException.class, HttpStatus.CONFLICT);
+        map.put(Exception.class, HttpStatus.INTERNAL_SERVER_ERROR);
+        statusMap = map;
+    }
 
     private final Logger logger = LoggerFactory.getLogger(DeskmateExceptionHandler.class);
 
