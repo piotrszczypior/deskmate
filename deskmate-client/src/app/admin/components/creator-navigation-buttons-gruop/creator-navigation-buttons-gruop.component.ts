@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { IconComponent } from '../../../shared/components/icon/icon.component';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {IconComponent} from '../../../shared/components/icon/icon.component';
+
 
 @Component({
   selector: 'app-creator-navigation-buttons-gruop',
@@ -8,6 +9,15 @@ import { IconComponent } from '../../../shared/components/icon/icon.component';
   styleUrl: './creator-navigation-buttons-gruop.component.scss',
 })
 export class CreatorNavigationButtonsGruopComponent {
+  @Input()
+  onlyContinue: boolean = false;
+
+  @Input()
+  isSubmitButton: boolean = false;
+
+  @Input()
+  isPrimaryDisabled: boolean = false;
+
   @Output()
   onContinueClick = new EventEmitter<void>();
 

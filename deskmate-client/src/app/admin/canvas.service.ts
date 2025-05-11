@@ -1,12 +1,11 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
+
 
 @Injectable({
   providedIn: 'root',
 })
 export class CanvasService {
   private readonly ADDITIONAL_PADDING = 20;
-
-  constructor() {}
 
   calculateImageInCenterOfCanvas(canvasWidth: number, canvasHeight: number, image: HTMLImageElement): CanvasConfig {
     let scale = 1.0;
@@ -26,7 +25,6 @@ export class CanvasService {
     const scaledWidth = image.width * scale;
     const scaledHeight = image.height * scale;
     const offsets = this.calculateCenterOffsets(canvasWidth, canvasHeight, scaledWidth, scaledHeight);
-
     return {
       scale: scale,
       scaledWidth: scaledWidth,
@@ -37,15 +35,15 @@ export class CanvasService {
   }
 
   private calculateCenterOffsets(
-    canvasWidth: number,
-    canvasHeight: number,
-    scaledWidth: number,
-    scaledHeight: number
+      canvasWidth: number,
+      canvasHeight: number,
+      scaledWidth: number,
+      scaledHeight: number
   ): { offsetX: number; offsetY: number } {
     const offsetX = (canvasWidth - scaledWidth) / 2;
     const offsetY = (canvasHeight - scaledHeight) / 2;
 
-    return { offsetX: offsetX, offsetY: offsetY };
+    return {offsetX: offsetX, offsetY: offsetY};
   }
 }
 

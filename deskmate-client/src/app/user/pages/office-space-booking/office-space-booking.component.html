@@ -1,0 +1,39 @@
+<div class="page-header"><h1>PAGE TITLE</h1></div>
+<div class="page-content">
+  <form [formGroup]="formGroup"
+        (ngSubmit)="onSubmit()">
+    <mat-stepper #stepper
+                 [linear]="true">
+
+      <mat-step
+          [stepControl]="dateBuildingFormGroup">
+        <app-date-building-step [formGroup]="dateBuildingFormGroup" />
+        <app-creator-navigation-buttons-gruop (onContinueClick)="stepper.next()"
+                                              [onlyContinue]="true"
+                                              [isPrimaryDisabled]="!dateBuildingFormGroup.valid"
+        />
+      </mat-step>
+      <mat-step
+          [stepControl]="placeFormGroup">
+        @if (dateBuildingFormGroup.valid) {
+          <app-place-booking-step [building]="building!"
+                                  [formGroup]="placeFormGroup"
+                                  [endDate]="endDate!"
+                                  [startDate]="startDate!"></app-place-booking-step>
+        }
+        <app-creator-navigation-buttons-gruop (onContinueClick)="stepper.next()"
+                                              (onBackClick)="stepper.previous()"
+                                              [isPrimaryDisabled]="!placeFormGroup.valid"
+        />
+      </mat-step>
+      <mat-step>
+        <h2>Verify Your reservation</h2>
+        <app-table-summary [data]="getSummaryData()"
+                           [title]="'Reservation'"></app-table-summary>
+        <app-creator-navigation-buttons-gruop [isSubmitButton]="true"
+                                              (onContinueClick)="onSubmit()"
+                                              (onBackClick)="stepper.previous()" />
+      </mat-step>
+    </mat-stepper>
+  </form>
+</div>

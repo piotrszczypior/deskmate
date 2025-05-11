@@ -1,0 +1,23 @@
+<form [formGroup]="formGroup">
+  <div class="form-container">
+    <div class="floors-desks-container">
+      <h2>Select Floor</h2>
+      <mat-form-field>
+        <mat-label>Select</mat-label>
+        <mat-select formControlName="floor"
+                    (selectionChange)="updateAvailableDesks($event)">
+          @for (image of floorImages; track image.id) {
+            <mat-option [value]="image">{{ image.floorNumber }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="canvas-container">
+      <app-place-picker [floorImage]="this.formGroup.get('floor')?.value"
+                        [desks]="availableDesks"
+                        formControlName="desk"
+      />
+    </div>
+  </div>
+</form>
+

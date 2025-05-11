@@ -1,0 +1,54 @@
+<form [formGroup]="formGroup">
+  <div class="form-first-part">
+    <h2>Select time of your visit</h2>
+    <div class="time-picker-container">
+      <div class="time-inputs-container">
+        <mat-form-field>
+          <mat-label>Enter a date range</mat-label>
+          <mat-date-range-input [rangePicker]="picker">
+            <input matStartDate
+                   placeholder="Start date"
+                   formControlName="startDate">
+            <input matEndDate
+                   placeholder="End date"
+                   formControlName="endDate">
+          </mat-date-range-input>
+          <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle matIconSuffix
+                                 [for]="picker"></mat-datepicker-toggle>
+          <mat-date-range-picker #picker></mat-date-range-picker>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Start time</mat-label>
+          <input [matTimepicker]="startTimepicker"
+                 formControlName="startTime"
+                 matInput>
+          <mat-timepicker #startTimepicker />
+          <mat-timepicker-toggle [for]="startTimepicker"
+                                 matSuffix />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>End time</mat-label>
+          <input [matTimepicker]="endTimepicker"
+                 formControlName="endTime"
+                 matInput>
+          <mat-timepicker #endTimepicker />
+          <mat-timepicker-toggle [for]="endTimepicker"
+                                 matSuffix />
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <div class="form-second-part">
+    <mat-divider></mat-divider>
+    <h2>Select Building</h2>
+    <mat-form-field>
+      <mat-label>Select</mat-label>
+      <mat-select formControlName="building">
+        @for (building of availableBuildings; track building.id) {
+          <mat-option [value]="building">{{ building.name }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  </div>
+</form>

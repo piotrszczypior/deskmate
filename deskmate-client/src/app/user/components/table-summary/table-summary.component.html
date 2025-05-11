@@ -1,0 +1,17 @@
+<table>
+  <thead>
+  <tr>
+    <th>{{ title }}</th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+
+    @for (item of data | keyvalue: noSort; track item.key) {
+      <tr>
+        <td>{{ item.key }}</td>
+        <td>{{ item.value }}</td>
+      </tr>
+    }
+  </tbody>
+</table>

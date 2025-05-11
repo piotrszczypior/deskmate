@@ -1,6 +1,9 @@
+@import "breakpoints";
+
 :host {
   .creator-navigation-buttons {
     display: flex;
+    flex-direction: column-reverse;
     justify-content: space-between;
     gap: 10px;
     padding: 20px 0;
@@ -10,12 +13,19 @@
       flex-direction: row;
       justify-content: center;
       align-items: center;
-      width: 250px;
+      max-width: 100%;
       height: 50px;
       border-radius: 8px;
       font-weight: bold;
       border: 1px solid black;
       cursor: pointer;
+    }
+
+    button:disabled {
+      background-color: #888;
+      color: #ddd;
+      opacity: 0.6;
+      cursor: default;
     }
 
     .back-button {
@@ -25,6 +35,16 @@
     .continue-button {
       color: white;
       background: black;
+    }
+  }
+
+  @media (width >= map-get($breakpoints, md)) {
+    .creator-navigation-buttons {
+      flex-direction: row;
+
+      button {
+        max-width: var(--button-max-width);
+      }
     }
   }
 }

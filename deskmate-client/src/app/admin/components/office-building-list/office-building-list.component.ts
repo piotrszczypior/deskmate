@@ -1,5 +1,7 @@
-import { Component, Input } from '@angular/core';
-import { OfficeBuildingItemComponent } from './office-building-item/office-building-item.component';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {OfficeBuildingItemComponent} from './office-building-item/office-building-item.component';
+import {Building} from '../../../user/pages/office-space-booking/model/OfficeSpaceBookingTypes';
+
 
 @Component({
   selector: 'app-office-building-list',
@@ -9,5 +11,12 @@ import { OfficeBuildingItemComponent } from './office-building-item/office-build
 })
 export class OfficeBuildingListComponent {
   @Input()
-  buildings: any[] = [];
+  buildings: Building[] = [];
+
+  @Output()
+  onBuildingSelect = new EventEmitter<Building>();
+
+  buildingSelected(building: Building): void {
+    this.onBuildingSelect.emit(building);
+  }
 }

@@ -1,15 +1,18 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { ImagesQuery } from '../../states/uploads/images.query';
-import { map, Observable } from 'rxjs';
-import { Image } from '../../states/uploads/images.model';
-import { AsyncPipe, NgIf } from '@angular/common';
-import { UploadedImageComponent } from '../../../components/uploaded-image/uploaded-image.component';
-import { FloorItemComponent } from '../../../../shared/components/floor-item/floor-item.component';
-import { CanvasWithMarkingsComponent } from '../../../components/canvas-with-markings/canvas-with-markings.component';
-import { CreatorNavigationButtonsGruopComponent } from '../../../components/creator-navigation-buttons-gruop/creator-navigation-buttons-gruop.component';
-import { Point } from '@angular/cdk/drag-drop';
-import { MarkedDesksListComponent } from '../../../components/marked-desks-list/marked-desks-list.component';
-import { ImagesService } from '../../states/uploads/images.service';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {ImagesQuery} from '../../states/uploads/images.query';
+import {map, Observable} from 'rxjs';
+import {Image} from '../../states/uploads/images.model';
+import {AsyncPipe, NgIf} from '@angular/common';
+import {UploadedImageComponent} from '../../../components/uploaded-image/uploaded-image.component';
+import {FloorItemComponent} from '../../../../shared/components/floor-item/floor-item.component';
+import {CanvasWithMarkingsComponent} from '../../../components/canvas-with-markings/canvas-with-markings.component';
+import {
+  CreatorNavigationButtonsGruopComponent
+} from '../../../components/creator-navigation-buttons-gruop/creator-navigation-buttons-gruop.component';
+import {Point} from '@angular/cdk/drag-drop';
+import {MarkedDesksListComponent} from '../../../components/marked-desks-list/marked-desks-list.component';
+import {ImagesService} from '../../states/uploads/images.service';
+
 
 @Component({
   selector: 'app-seating-annotator',
@@ -37,9 +40,10 @@ export class SeatingAnnotatorComponent implements OnInit {
   protected selectedSeats$: Observable<Point[]>;
 
   constructor(
-    private readonly imagesQuery: ImagesQuery,
-    private readonly imagesService: ImagesService
-  ) {}
+      private readonly imagesQuery: ImagesQuery,
+      private readonly imagesService: ImagesService
+  ) {
+  }
 
   get images(): Observable<Image[]> {
     return this.imagesQuery.selectAll();

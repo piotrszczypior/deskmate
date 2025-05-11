@@ -1,0 +1,5 @@
+<app-image-canvas [imageUrl]="this.floorImage?.image?.url || ''"
+                  [points]="mapPointsToCanvasPoints()"
+                  [allowPointing]="true"
+                  (pointClick)="placeSelected($event)"
+/>

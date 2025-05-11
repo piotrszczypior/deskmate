@@ -1,0 +1,13 @@
+:host {
+  mat-dialog-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  mat-icon {
+    color: #4caf50;
+    font-size: 30px;
+  }
+}
