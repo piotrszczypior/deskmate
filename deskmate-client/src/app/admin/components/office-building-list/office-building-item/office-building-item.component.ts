@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
-import { Router } from '@angular/router';
+import {Component, Input} from '@angular/core';
+import {Router} from '@angular/router';
+
 
 @Component({
   selector: 'app-office-building-item',
@@ -14,10 +15,11 @@ export class OfficeBuildingItemComponent {
   @Input() //TODO: to be removed
   index: number;
 
-  constructor(private readonly router: Router) {}
+  constructor(private readonly router: Router) {
+  }
 
   onClick(): void {
     // TODO
-    void this.router.navigate(['/admin-dashboard']);
+    //void this.router.navigate(['/admin-dashboard']);
   }
 }

@@ -2,5 +2,12 @@
   button {
     max-width: var(--button-max-width);
     width: 100%;
+    cursor: pointer;
+  }
+
+  .mat-calendar-header {
+    button {
+      width: auto;
+    }
   }
 }

@@ -1,0 +1,34 @@
+@import "breakpoints";
+
+:host {
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px
+  }
+
+  .time-picker-container {
+    display: flex;
+    gap: 100px;
+    padding-bottom: 50px;
+
+    .time-inputs-container {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+  }
+
+  @media (width >= map-get($breakpoints, md)) {
+    form {
+      flex-direction: row;
+      align-items: normal;
+      gap: 50px
+    }
+    mat-divider {
+      display: none;
+    }
+  }
+}
+

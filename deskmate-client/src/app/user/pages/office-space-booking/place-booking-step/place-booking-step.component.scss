@@ -1,0 +1,23 @@
+@import "breakpoints";
+
+:host {
+  .form-container {
+    display: flex;
+    height: fit-content;
+    align-items: center;
+    gap: 30px;
+    flex-direction: column;
+  }
+
+  .canvas-container {
+    height: 500px;
+    width: 75%;
+  }
+
+  @media (width >= map-get($breakpoints, md)) {
+    .form-container {
+      flex-direction: row;
+      align-items: normal;
+    }
+  }
+}

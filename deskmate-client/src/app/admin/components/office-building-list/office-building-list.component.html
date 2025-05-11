@@ -1,7 +1,9 @@
 <div class="buildings-card">
   @for (building of buildings; track $index) {
     <app-office-building-item
-      [building]="building"
-      [index]="$index" />
+        [building]="building"
+        [index]="$index"
+        (click)="buildingSelected(building)"
+    />
   }
 </div>

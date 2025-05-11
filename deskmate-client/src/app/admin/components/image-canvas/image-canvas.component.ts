@@ -288,5 +288,5 @@ enum CursorMode {
 
 export interface CanvasPoint {
   point: Point;
-  color: 'green' | 'red';
+  color: 'green' | 'red' | 'yellow';
 }

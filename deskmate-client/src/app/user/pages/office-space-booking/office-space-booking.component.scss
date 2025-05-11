@@ -1,0 +1,26 @@
+@import "page";
+@import "breakpoints";
+
+:host {
+  mat-stepper {
+    background: white;
+  }
+
+  .demo-inline-calendar-card {
+    width: 300px;
+  }
+
+  .image-canvas-container {
+    height: 600px
+  }
+
+  .flex-container {
+    display: flex;
+  }
+
+
+  ::ng-deep mat-form-field {
+    width: 250px;
+  }
+
+}
