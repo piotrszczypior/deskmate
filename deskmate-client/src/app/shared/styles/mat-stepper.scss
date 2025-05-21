@@ -1,0 +1,16 @@
+@use '@angular/material' as mat;
+
+:root {
+  .mat-step-header .mat-step-label {
+    display: none;
+  }
+
+
+  @include mat.stepper-overrides((
+      header-icon-foreground-color: #ffffff,
+      header-selected-state-icon-background-color: #ffffff,
+      header-selected-state-icon-foreground-color: #000000,
+      header-edit-state-icon-background-color: #000000
+  ));
+}
+

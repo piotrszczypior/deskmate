@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatStep, MatStepper} from '@angular/material/stepper';
-import moment from 'moment';
 import {
   AbstractControl,
   FormBuilder,
@@ -21,8 +20,14 @@ import {
 import {TableSummaryComponent} from '../../components/table-summary/table-summary.component';
 import {MatDialog} from '@angular/material/dialog';
 import {InfoDialogComponent} from '../../../info-dialog/info-dialog.component';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Building, Desk, FloorImage} from './model/OfficeSpaceBookingTypes';
+import {getDateFromDate, getTimeFromDate} from '../../../shared/utils/DateUtils';
+import {BookingsService} from '../my-bookings/service/bookings.service';
+import {forkJoin, Observable} from 'rxjs';
+import {OfficeSpaceService} from './service/office-space.service';
+import {Booking} from '../my-bookings/model/BookingTypes';
+import {map, switchMap} from 'rxjs/operators';
 
 
 @Component({
@@ -47,36 +52,16 @@ import {Building, Desk, FloorImage} from './model/OfficeSpaceBookingTypes';
 })
 export class OfficeSpaceBookingComponent implements OnInit {
   protected formGroup: FormGroup;
+  private isEdititingForm: boolean;
 
   constructor(
       private readonly formBuilder: FormBuilder,
       private readonly dialog: MatDialog,
-      private readonly router: Router
+      private readonly router: Router,
+      private readonly route: ActivatedRoute,
+      private readonly bookingService: BookingsService,
+      private readonly officeSpaceService: OfficeSpaceService
   ) {
-  }
-
-  ngOnInit(): void {
-    this.formGroup = this.formBuilder.group({
-      dateBuilding: this.formBuilder.group({
-        startDate: [null, Validators.required],
-        endDate: [null, Validators.required],
-        startTime: [null, Validators.required],
-        endTime: [null, Validators.required],
-        building: [null, Validators.required]
-      }, {
-        validators: this.timeRangeValidator('startTime', 'endTime')
-      }),
-      place: this.formBuilder.group({
-        floor: [null, Validators.required],
-        desk: [null, Validators.required]
-      })
-    });
-  }
-
-  onSubmit(): void {
-    //TODO: API POST + redirect
-    void this.router.navigate([''])
-    this.dialog.open(InfoDialogComponent, {data: 'Your booking has been successfully created!'})
   }
 
   get dateBuildingFormGroup(): FormGroup {
@@ -115,26 +100,73 @@ export class OfficeSpaceBookingComponent implements OnInit {
     return this.placeFormGroup.get('desk')?.value;
   }
 
-  getTimeFromDate(date: Date): string {
-    return moment(date).format('hh:mm');
+  ngOnInit(): void {
+    const bookingId: string | null = this.route.snapshot.paramMap.get('id');
+    this.isEdititingForm = !!bookingId;
+
+    this.formGroup = this.formBuilder.group({
+      dateBuilding: this.formBuilder.group({
+        startDate: [null, Validators.required],
+        endDate: [null, Validators.required],
+        startTime: [null, Validators.required],
+        endTime: [null, Validators.required],
+        building: [null, Validators.required]
+      }, {
+        validators: this.timeRangeValidator('startTime', 'endTime')
+      }),
+      place: this.formBuilder.group({
+        floor: [null, Validators.required],
+        desk: [null, Validators.required]
+      })
+    });
+
+    if (bookingId) {
+      this.resolveRouteData(+bookingId).subscribe({
+        next: ({booking, floorImages, desks}) => {
+          this.formGroup.patchValue({
+            dateBuilding: {
+              startDate: booking.startDate,
+              endDate: booking.endDate,
+              startTime: booking.startDate,
+              endTime: booking.endDate,
+              building: booking.building
+            },
+            place: {
+              floor: floorImages.find((fi: FloorImage) => fi.id === booking.floorImageId),
+              desk: desks.find((d: Desk) => d.id === booking.deskId)
+            }
+          });
+          console.log(booking)
+        },
+        error: () => void this.router.navigate(['']) //TODO: WE CAN MOVE IT TO GUARD BUT WHO CARES
+      });
+    }
   }
 
-  getDateFromDate(date: Date): string {
-    return moment(date).format('DD/MM/YYYY');
+
+  onSubmit(): void {
+    if (!this.isEdititingForm) {
+      //TODO: POST
+      void this.router.navigate([''])
+      this.dialog.open(InfoDialogComponent, {data: 'Your booking has been successfully created!'})
+    } else {
+      //TODO: PUT
+      void this.router.navigate([''])
+      this.dialog.open(InfoDialogComponent, {data: 'Your booking has been successfully updated!'})
+    }
   }
 
   getSummaryData(): { [key: string]: string } {
     return {
-      'Start Date': this.startDate ? this.getDateFromDate(this.startDate) : '',
-      'End Date': this.endDate ? this.getDateFromDate(this.endDate) : '',
-      'Start Time': this.startTime ? this.getTimeFromDate(this.startTime) : '',
-      'End Time': this.endTime ? this.getTimeFromDate(this.endTime) : '',
+      'Start Date': this.startDate ? getDateFromDate(this.startDate) : '',
+      'End Date': this.endDate ? getDateFromDate(this.endDate) : '',
+      'Start Time': this.startTime ? getTimeFromDate(this.startTime) : '',
+      'End Time': this.endTime ? getTimeFromDate(this.endTime) : '',
       'Building': this.building?.name ?? '',
       'Floor': this.floor?.floorNumber.toString() ?? '',
       'Desk': this.desk?.id.toString() ?? ''
     }
   }
-
 
   private timeRangeValidator(
       startTimeKey: string,
@@ -155,5 +187,19 @@ export class OfficeSpaceBookingComponent implements OnInit {
 
       return error;
     };
+  }
+
+  private resolveRouteData(bookingId: number): Observable<({
+    booking: Booking,
+    floorImages: FloorImage[],
+    desks: Desk[]
+  })> {
+    return this.bookingService.getBookingById(bookingId).pipe(
+        switchMap(booking =>
+            forkJoin({
+              floorImages: this.officeSpaceService.getFloorImagesByBuilding(booking.building.id),
+              desks: this.officeSpaceService.getDesksByFloorAndDate(
+                  booking.floorImageId, booking.startDate, booking.endDate)
+            }).pipe(map(({floorImages, desks}) => ({booking, floorImages, desks})))));
   }
 }

@@ -1,0 +1,8 @@
+@use '@angular/material' as mat;
+
+:root {
+  @include mat.theme-overrides((
+      corner-extra-large: 8px,
+  ));
+}
+

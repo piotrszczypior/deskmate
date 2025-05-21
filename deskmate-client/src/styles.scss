@@ -2,12 +2,8 @@
 @use '@angular/material' as mat;
 @import "variables";
 @import "buttons";
-
-html {
-  @include mat.theme-overrides((
-      corner-extra-large: 8px,
-  ));
-}
+@import "mat-stepper";
+@import "ngmaterials-theme";
 
 html,
 body {
@@ -20,16 +16,3 @@ body {
   font-family: Roboto, 'Helvetica Neue', sans-serif;
   box-sizing: border-box;
 }
-
-//TODO: should be separated
-::ng-deep .custom-dialog .mat-dialog-container {
-  border-radius: 20px;
-}
-
-
-@include mat.stepper-overrides((
-    header-icon-foreground-color: #ffffff,
-    header-selected-state-icon-background-color: #ffffff,
-    header-selected-state-icon-foreground-color: #000000,
-    header-edit-state-icon-background-color: #000000
-));

@@ -1,0 +1,20 @@
+<div class="page-header"><h1>Your Reservations</h1></div>
+<div class="page-content">
+  <div class="flex-container">
+    <div class="booking-list">
+      <h2>Edit your reservation</h2>
+      <h3>Change your desk, building or time slot.</h3>
+      @for (booking of bookings; track $index) {
+        <app-booking-list-item [booking]="booking"
+                               (click)="onBookingClick(booking)"
+                               [class.selected]="booking === selectedBooking"></app-booking-list-item>
+      }
+      <app-creator-navigation-buttons-gruop (onContinueClick)="navigateToEdit()"
+                                            [onlyContinue]="true" />
+    </div>
+    <div class="canvas-container">
+      <app-image-canvas [imageUrl]="selectedBookingFloorImage?.image?.url ?? ''"
+                        [points]="selectedBookingCanvasPoints" />
+    </div>
+  </div>
+</div>

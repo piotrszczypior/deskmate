@@ -1,11 +1,12 @@
-import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {FormGroup, ReactiveFormsModule} from '@angular/forms';
 import {OfficeSpaceService} from '../service/office-space.service';
 import {PlacePickerComponent} from '../../../components/place-picker/place-picker.component';
 import {MatOption} from '@angular/material/core';
-import {MatFormField, MatSelect, MatSelectChange} from '@angular/material/select';
-import {MatLabel} from '@angular/material/input';
+import {MatSelect, MatSelectChange} from '@angular/material/select';
+import {MatFormField, MatLabel} from '@angular/material/input';
 import {Building, Desk, FloorImage} from '../model/OfficeSpaceBookingTypes';
+import {compareById} from '../../../../shared/utils/FormUtils';
 
 
 @Component({
@@ -21,7 +22,7 @@ import {Building, Desk, FloorImage} from '../model/OfficeSpaceBookingTypes';
   templateUrl: './place-booking-step.component.html',
   styleUrl: './place-booking-step.component.scss'
 })
-export class PlaceBookingStepComponent implements OnChanges {
+export class PlaceBookingStepComponent implements OnInit, OnChanges {
   @Input({required: true})
   formGroup: FormGroup;
   @Input({required: true})
@@ -30,13 +31,19 @@ export class PlaceBookingStepComponent implements OnChanges {
   startDate: Date;
   @Input({required: true})
   endDate: Date
-  
+
   availableDesks: Desk[] = [];
   floorImages: FloorImage[] = [];
 
   constructor(private readonly officeSpaceService: OfficeSpaceService) {
   }
 
+  ngOnInit(): void {
+    const floorId: number = this.formGroup.get('floor')?.value;
+    if (floorId) {
+      this.updateAvailableDesks(floorId);
+    }
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['building']) {
@@ -46,9 +53,15 @@ export class PlaceBookingStepComponent implements OnChanges {
     }
   }
 
-  updateAvailableDesks(event: MatSelectChange) {
-    this.officeSpaceService.getDesksByFloorAndDate(event.value, this.startDate, this.endDate).subscribe({
+  onSelectionChange(event: MatSelectChange): void {
+    this.updateAvailableDesks(event.value);
+  }
+
+  private updateAvailableDesks(floorId: number): void {
+    this.officeSpaceService.getDesksByFloorAndDate(floorId, this.startDate, this.endDate).subscribe({
       next: val => this.availableDesks = val
     });
   }
+
+  protected readonly compareById = compareById;
 }

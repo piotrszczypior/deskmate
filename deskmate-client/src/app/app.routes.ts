@@ -4,6 +4,7 @@ import {OfficeLayoutCreatorComponent} from './admin/pages/office-layout-creator/
 import {LoginPageComponent} from './core/auth/login-page/login-page.component';
 import {DemoComponent} from './demo/demo.component';
 import {OfficeSpaceBookingComponent} from './user/pages/office-space-booking/office-space-booking.component';
+import {MyBookingsComponent} from './user/pages/my-bookings/my-bookings.component';
 
 
 export const routes: Routes = [
@@ -27,6 +28,14 @@ export const routes: Routes = [
   {
     path: 'book',
     component: OfficeSpaceBookingComponent,
+  },
+  {
+    path: 'edit-booking/:id',
+    component: OfficeSpaceBookingComponent,
+  },
+  {
+    path: 'my-bookings',
+    component: MyBookingsComponent,
   },
   {
     path: 'demo',
