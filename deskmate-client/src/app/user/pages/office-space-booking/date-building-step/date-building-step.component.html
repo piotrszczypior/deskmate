@@ -6,16 +6,16 @@
         <mat-form-field>
           <mat-label>Enter a date range</mat-label>
           <mat-date-range-input [rangePicker]="picker">
-            <input matStartDate
-                   placeholder="Start date"
-                   formControlName="startDate">
-            <input matEndDate
-                   placeholder="End date"
-                   formControlName="endDate">
+            <input formControlName="startDate"
+                   matStartDate
+                   placeholder="Start date">
+            <input formControlName="endDate"
+                   matEndDate
+                   placeholder="End date">
           </mat-date-range-input>
           <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
-          <mat-datepicker-toggle matIconSuffix
-                                 [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker-toggle [for]="picker"
+                                 matIconSuffix></mat-datepicker-toggle>
           <mat-date-range-picker #picker></mat-date-range-picker>
         </mat-form-field>
         <mat-form-field>
@@ -44,7 +44,8 @@
     <h2>Select Building</h2>
     <mat-form-field>
       <mat-label>Select</mat-label>
-      <mat-select formControlName="building">
+      <mat-select [compareWith]="compareById"
+                  formControlName="building">
         @for (building of availableBuildings; track building.id) {
           <mat-option [value]="building">{{ building.name }}</mat-option>
         }

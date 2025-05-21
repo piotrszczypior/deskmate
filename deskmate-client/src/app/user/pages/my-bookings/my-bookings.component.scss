@@ -1,0 +1,35 @@
+@import "page";
+@import "breakpoints";
+
+:host {
+  .flex-container {
+    flex-direction: column;
+    display: flex;
+    gap: 30px
+  }
+
+  .booking-list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .canvas-container {
+    width: 100%;
+    height: 500px;
+  }
+
+  @media (width >= map-get($breakpoints, lg)) {
+    .flex-container {
+      flex-direction: row;
+    }
+    .booking-list {
+      width: 30%;
+    }
+
+    .canvas-container {
+      width: 70%;
+    }
+  }
+}

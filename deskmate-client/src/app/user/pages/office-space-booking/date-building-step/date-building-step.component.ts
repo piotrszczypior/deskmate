@@ -10,6 +10,7 @@ import {OfficeSpaceService} from '../service/office-space.service';
 import {Building} from '../model/OfficeSpaceBookingTypes';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
+import {compareById} from '../../../../shared/utils/FormUtils';
 
 
 @Component({
@@ -49,4 +50,6 @@ export class DateBuildingStepComponent implements OnInit {
       next: value => this.availableBuildings = value
     });
   }
+
+  protected readonly compareById = compareById;
 }
