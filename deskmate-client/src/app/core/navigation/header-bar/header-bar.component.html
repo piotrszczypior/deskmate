@@ -1,5 +1,18 @@
-<div class="header-bar">
-  <img
-    class="logo"
-    src="logo-3.png" />
-</div>
+<nav class="header-bar">
+  <div class="header-logo">
+    <img
+        class="logo"
+        src="logo-3.png" />
+  </div>
+  <ul class="navbar-links">
+    @for (routerLink of this.currentMenuLinks; track $index) {
+      <li><a [routerLink]="routerLink.routerLink"
+             routerLinkActive="active">{{ routerLink.linkText }}</a></li>
+    }
+    <li>
+      <button class="logout-button"
+              (click)="logout()">Logout
+      </button>
+    </li>
+  </ul>
+</nav>
