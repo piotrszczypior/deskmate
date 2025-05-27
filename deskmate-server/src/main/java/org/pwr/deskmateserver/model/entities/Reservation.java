@@ -18,7 +18,7 @@ public class Reservation {
     @Column(name = "id")
     private Long id;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "worker_id", referencedColumnName = "id")
     private OfficeWorker worker;
 

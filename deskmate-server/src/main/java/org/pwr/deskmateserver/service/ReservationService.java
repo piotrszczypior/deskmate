@@ -7,15 +7,8 @@ import org.pwr.deskmateserver.dto.reservation.ReservationDTO;
 import org.pwr.deskmateserver.dto.reservation.ReserveSeatDTO;
 import org.pwr.deskmateserver.exceptions.CollisionException;
 import org.pwr.deskmateserver.exceptions.NotFoundException;
-import org.pwr.deskmateserver.model.entities.OfficeWorker;
-import org.pwr.deskmateserver.model.entities.Reservation;
-import org.pwr.deskmateserver.model.entities.Seat;
-import org.pwr.deskmateserver.model.entities.User;
-import org.pwr.deskmateserver.repo.OfficeWorkerRepository;
-import org.pwr.deskmateserver.repo.ReservationRepository;
-import org.pwr.deskmateserver.repo.SeatRepository;
-import org.pwr.deskmateserver.repo.UserRepository;
-import org.springframework.security.core.Authentication;
+import org.pwr.deskmateserver.model.entities.*;
+import org.pwr.deskmateserver.repo.*;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -30,20 +23,12 @@ public class ReservationService {
     private final SeatRepository seatRepository;
     private final UserRepository userRepository;
     private final OfficeWorkerRepository workerRepository;
+    private final SeatFloorLinkRepository seatFloorLinkRepository;
+    private final FloorRepository floorRepository;
 
     @Transactional
     public ReservationDTO reserveSeat(ReserveSeatDTO newReservation) throws NotFoundException, CollisionException {
-        UserDTO userDTO = (UserDTO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Optional<User> user = userRepository.findById(userDTO.getId());
-        if(user.isEmpty()) {
-            throw new NotFoundException("User not found!");
-        }
-
-        Optional<OfficeWorker> officeWorker = workerRepository.findByUser(user.get());
-        if(officeWorker.isEmpty()) {
-            throw new NotFoundException("Office worker not found!");
-        }
-
+        OfficeWorker officeWorker = getCurrentOfficeWorker();
         Optional<Seat> seat = seatRepository.findById(newReservation.getSeatId());
         if(seat.isEmpty()) {
             throw new NotFoundException("Seat not found!");
@@ -54,7 +39,7 @@ public class ReservationService {
         }
 
         Reservation reservation = Reservation.builder()
-            .worker(officeWorker.get())
+            .worker(officeWorker)
             .seat(seat.get())
             .startDate(newReservation.getFrom())
             .endDate(newReservation.getTo())
@@ -68,8 +53,22 @@ public class ReservationService {
         return overlappingReservations.isEmpty();
     }
 
-    public List<Reservation> getReservationsForUser(OfficeWorker worker) {
-        return reservationRepository.findAllByWorkerId(worker.getId());
+    public List<ReservationDTO> getReservationsForUser() throws NotFoundException {
+        OfficeWorker officeWorker = getCurrentOfficeWorker();
+
+        return reservationRepository.findAllByWorkerId(officeWorker.getId()).stream().map(ReservationDTO::from).toList();
+    }
+
+    public List<ReservationDTO> getReservationsByFloor(Long floorId, Long from, Long to) throws NotFoundException {
+        Optional<Floor> floor = this.floorRepository.findById(floorId);
+        if(floor.isEmpty()) {
+            throw new NotFoundException("Floor does not exist!");
+        }
+        List<SeatFloorLink> links = this.seatFloorLinkRepository.findByFloor(floor.get());
+        List<Long> seatIds = links.stream().map((s) -> s.getSeat().getId()).toList();
+        List<Reservation> reservations = this.reservationRepository.findOverlappingReservationsForSeats(seatIds, new Date(from), new Date(to));
+
+        return reservations.stream().map(ReservationDTO::from).toList();
     }
 
     public List<ReservationDTO> getReservationsForSeat(Long seatId, Long from, Long to) throws NotFoundException {
@@ -79,5 +78,20 @@ public class ReservationService {
         }
 
         return reservationRepository.findActiveBySeatIdWithOptionalDateRange(seat.get().getId(), from, to).stream().map(ReservationDTO::from).toList();
+    }
+
+    private OfficeWorker getCurrentOfficeWorker() throws NotFoundException {
+        UserDTO userDTO = (UserDTO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Optional<User> user = userRepository.findById(userDTO.getId());
+        if(user.isEmpty()) {
+            throw new NotFoundException("User not found!");
+        }
+
+        Optional<OfficeWorker> officeWorker = workerRepository.findByUser(user.get());
+        if(officeWorker.isEmpty()) {
+            throw new NotFoundException("Office worker not found!");
+        }
+
+        return officeWorker.get();
     }
 }

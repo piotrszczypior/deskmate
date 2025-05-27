@@ -36,4 +36,16 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
         @Param("from") Date from,
         @Param("to") Date to
     );
+
+    @Query("""
+        SELECT r FROM Reservation r 
+        WHERE r.seat.id IN :seatIds 
+          AND r.startDate < :to 
+          AND r.endDate > :from
+    """)
+    List<Reservation> findOverlappingReservationsForSeats(
+        @Param("seatIds") List<Long> seatIds,
+        @Param("from") Date from,
+        @Param("to") Date to
+    );
 }

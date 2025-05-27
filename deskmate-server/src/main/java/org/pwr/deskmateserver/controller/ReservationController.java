@@ -21,12 +21,26 @@ public class ReservationController {
         return ResponseEntity.ok(this.reservationService.reserveSeat(reserveSeatDTO));
     }
 
-    @GetMapping("/seats/{id}/reservations")
+    @GetMapping("/reservations/seat/{id}")
     public ResponseEntity<Object> getReservationsForSeat(
         @PathVariable Long id,
         @RequestParam Long from,
         @RequestParam Long to
     ) throws NotFoundException {
         return ResponseEntity.ok(this.reservationService.getReservationsForSeat(id, from, to));
+    }
+
+    @GetMapping("/reservations/floor/{id}")
+    public ResponseEntity<Object> getReservationsForFloor(
+        @PathVariable Long id,
+        @RequestParam Long from,
+        @RequestParam Long to
+    ) throws NotFoundException {
+        return ResponseEntity.ok(this.reservationService.getReservationsByFloor(id, from, to));
+    }
+
+    @GetMapping("/reservations/my")
+    public ResponseEntity<Object> getMyReservations() throws NotFoundException {
+        return ResponseEntity.ok(this.reservationService.getReservationsForUser());
     }
 }
