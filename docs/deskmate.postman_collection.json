@@ -102,7 +102,7 @@
 			"response": []
 		},
 		{
-			"name": "seats",
+			"name": "seats/{floor_id}",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -122,7 +122,7 @@
 			"response": []
 		},
 		{
-			"name": "seats",
+			"name": "seats/{floor_id}",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -204,6 +204,52 @@
 				"body": {
 					"mode": "raw",
 					"raw": "{\n    \"login\": \"admin\",\n    \"password\": \"password\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{apiUrl}}/api/v1/login",
+					"host": [
+						"{{apiUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login_office_worker",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"try {",
+							"pm.collectionVariables.set('accessToken', pm.response.json().accessToken)",
+							"} catch (e) {",
+							"    console.log(e)",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"login\": \"user1\",\n    \"password\": \"password\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -312,6 +358,116 @@
 						"v1",
 						"asset",
 						"office-plan.png"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "reserve",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"seatId\": 1,\n    \"from\": 1751975570000,\n    \"to\": 1752061970000\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{apiUrl}}/api/v1/reserve",
+					"host": [
+						"{{apiUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"reserve"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "reservations/seat/{id}",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{apiUrl}}/api/v1/reservations/seat/1?from=1751975560000&to=1752061970000",
+					"host": [
+						"{{apiUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"reservations",
+						"seat",
+						"1"
+					],
+					"query": [
+						{
+							"key": "from",
+							"value": "1751975560000"
+						},
+						{
+							"key": "to",
+							"value": "1752061970000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "reservations/floor/{id}",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{apiUrl}}/api/v1/reservations/floor/1?from=1751975560000&to=1752061970000",
+					"host": [
+						"{{apiUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"reservations",
+						"floor",
+						"1"
+					],
+					"query": [
+						{
+							"key": "from",
+							"value": "1751975560000"
+						},
+						{
+							"key": "to",
+							"value": "1752061970000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "reservations/my",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{apiUrl}}/api/v1/reservations/my",
+					"host": [
+						"{{apiUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"reservations",
+						"my"
 					]
 				}
 			},
